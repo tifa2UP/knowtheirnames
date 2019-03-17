@@ -14,7 +14,7 @@ let BoxStyle = styled.div`
 let BoxBackground = styled.div`
   -webkit-filter: grayscale(100%);
   background-size: cover !important;
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/poolwithme-f854f.appspot.com/o/D10s9q9X0AETD0D.jpg?alt=media&token=0ee75088-34a1-4d8b-8d07-dd32edfb9675") !important;
+  background-image: url(${props => props.image}) !important;
 `;
 
 let Layer = styled.div`
@@ -71,7 +71,7 @@ export default class Box extends Component {
           width={this.props.width}
           height={this.props.width}
         >
-          <BoxBackground className="header">
+          <BoxBackground className="header" image={this.props.image}>
             <Layer color={this.getGreyColor()}>
               <nav>
                 <h2>

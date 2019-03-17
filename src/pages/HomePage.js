@@ -1,13 +1,30 @@
 import React, { Component } from "react";
 import Box from "../components/Box";
 import { format } from "url";
-
 class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
       activeBox: false
     };
+  }
+  shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
   }
 
   getBoxDimensions(size) {
@@ -42,24 +59,21 @@ class HomePage extends Component {
     });
   };
   render() {
-    let array = [];
-    for (let i = 0; i < 48; i++) {
-      array.push(i);
-    }
+    let array = require("../memorial.json");
+    // array = this.shuffle(array);
+
     let boxDimensions = this.getBoxDimensions(array.length);
-    console.log(boxDimensions);
     let BoxRenders = array.map(box => (
       <div>
         <Box
-          name={"Abdellatif Abdelfattah"}
-          key={box}
+          name={box.name}
+          key={box.name}
           top={boxDimensions[array.indexOf(box)].top}
           left={boxDimensions[array.indexOf(box)].left}
           width={boxDimensions[array.indexOf(box)].width}
           onClick={this.activateBox}
-          notes={
-            "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum"
-          }
+          notes={box.notes}
+          image={box.picture_url}
           onClose={this.onClose}
           active={this.state.activeBox ? "invisible" : ""}
         />
@@ -68,7 +82,7 @@ class HomePage extends Component {
     return (
       <div>
         <div className="logo">
-          <a href="index.html" style={{ color: "white" }}>
+          <a href="/" style={{ color: "white" }}>
             KNOW THEIR NAMES.
           </a>
         </div>
