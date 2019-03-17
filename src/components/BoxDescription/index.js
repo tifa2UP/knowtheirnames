@@ -5,6 +5,17 @@ export default class BoxDescription extends Component {
   render() {
     return (
       <div>
+        <div className="header-title invisible">
+          <div className="row">
+            <div className="large-8 columns">
+              <h2>About</h2>
+              <p>
+                We build brands people trust. Our values and ideas bring people
+                and brands together.
+              </p>
+            </div>
+          </div>
+        </div>
         <div className="content invisible">
           <div className="two spacing" />
           <div className="full full-screen">

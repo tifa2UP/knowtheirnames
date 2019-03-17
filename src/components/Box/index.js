@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import BoxDescription from '../BoxDescription';
+import BoxDescription from "../BoxDescription";
 
 let BoxStyle = styled.div`
-  left: ${props => props.left}%!important;
-  top: ${props => props.top}%!important;
+  left: ${props => (props.active ? "" : props.left)}%!important;
+  top: ${props => (props.active ? "" : props.top)}%!important;
   background: black;
-  width: ${props => props.width}%!important;
-  height: ${props => props.height}%!important;
+  width: ${props => (props.active ? "" : props.width)}%!important;
+  height: ${props => (props.active ? "" : props.height)}%!important;
+  display: ${props => (props.active == "invisible" ? "display: none" : "")};
 `;
 
 let BoxBackground = styled.div`
@@ -17,7 +18,12 @@ let BoxBackground = styled.div`
 `;
 
 let Layer = styled.div`
-  background-color: rgba(${props => props.color}, ${props => props.color}, ${props => props.color}, 0.7);
+  background-color: rgba(
+    ${props => props.color},
+    ${props => props.color},
+    ${props => props.color},
+    0.7
+  );
   position: absolute;
   top: 0;
   left: 0;
@@ -26,22 +32,38 @@ let Layer = styled.div`
 `;
 
 export default class Box extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeBox: false
+    };
+  }
   getGreyColor = () => {
     return Math.random() * 100;
-  }
+  };
+
+  onClick = () => {
+    this.props.onClick();
+    this.setState({
+      activeBox: true
+    });
+  };
   render() {
     return (
-      <div>
+      <div onClick={this.onClick}>
         <BoxStyle
           id="about"
-          className={`box ${this.props.active}`}
+          active={this.state.activeBox}
+          className={`box ${
+            this.state.activeBox ? "active" : this.props.active
+          }`}
           left={this.props.left}
           top={this.props.top}
           width={this.props.width}
           height={this.props.width}
         >
           <BoxBackground className="header">
-            <Layer color={this.getGreyColor()} >
+            <Layer color={this.getGreyColor()}>
               <nav>
                 <h2>
                   <a href="#">
@@ -51,7 +73,7 @@ export default class Box extends Component {
               </nav>
             </Layer>
           </BoxBackground>
-          <BoxDescription />
+          {this.props.active? <BoxDescription /> : ""}
         </BoxStyle>
       </div>
     );

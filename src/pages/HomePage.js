@@ -5,6 +5,9 @@ import { format } from "url";
 class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      activeBox: false,
+    }
   }
 
   getBoxDimensions(size) {
@@ -26,6 +29,12 @@ class HomePage extends Component {
     }
     return result;
   }
+
+  activateBox = () => {
+    this.setState({
+      activeBox: true,
+    })
+  }
   render() {
     let array = [];
     for (let i = 0; i < 48; i++) {
@@ -41,13 +50,15 @@ class HomePage extends Component {
           top={boxDimensions[array.indexOf(box)].top}
           left={boxDimensions[array.indexOf(box)].left}
           width={boxDimensions[array.indexOf(box)].width}
+          onClick={this.activateBox}
+          active={this.state.activeBox ? "invisible" : ""}
         />
       </div>
-    ));
+    )); 
     return (
       <div>
         <div className="logo">
-          <a href="index.html">KNOW THEIR NAMES.</a>
+          <a href="index.html" style={{color: "white"}}>KNOW THEIR NAMES.</a>
         </div>
         {BoxRenders}
 
