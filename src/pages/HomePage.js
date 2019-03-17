@@ -8,10 +8,11 @@ class HomePage extends Component {
         <div className="logo">
           <a href="index.html">AOKO.</a>
         </div>
-        <Box />
-        <Box />
-        <Box />
-        <Box />
+        <Box name="abc" top="0" left="0"/>
+        <Box name="abc" top="0" left="50"/>
+        <Box name="abc" top="50" left="0"/>
+        <Box name="abc" top="50" left="50"/>
+ 
         <nav>
           <a href="#" id="back" className="hide">
             <i className="fa fa-close" />
