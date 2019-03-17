@@ -39,7 +39,7 @@ class HomePage extends Component {
         width: increment
       });
       left += increment;
-      if (left == 100) {
+      if (left === 100) {
         left = 0;
         top += increment;
       }

@@ -8,7 +8,7 @@ let BoxStyle = styled.div`
   background: black;
   width: ${props => (props.active ? "" : props.width)}%!important;
   height: ${props => (props.active ? "" : props.height)}%!important;
-  display: ${props => (props.active == "invisible" ? "display: none" : "")};
+  display: ${props => (props.active === "invisible" ? "display: none" : "")};
 `;
 
 let BoxBackground = styled.div`
