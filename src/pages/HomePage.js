@@ -31,7 +31,7 @@ class HomePage extends Component {
     let result = [];
     let top = 0;
     let left = 0;
-    let increment = 100 / (window.innerWidth < 700 ? 2 : 4);
+    let increment = 100 / 4;
     for (let i = 0; i < size; i++) {
       result.push({
         top: top,
@@ -54,9 +54,11 @@ class HomePage extends Component {
   };
 
   onClose = () => {
+    console.log("parent onClose called")
     this.setState({
       activeBox: false
     });
+    this.forceUpdate()
   };
   render() {
     let array = require("../memorial.json");
@@ -67,7 +69,7 @@ class HomePage extends Component {
       <div>
         <Box
           name={box.name}
-          key={box.name}
+          key={box.id}
           top={boxDimensions[array.indexOf(box)].top}
           left={boxDimensions[array.indexOf(box)].left}
           width={boxDimensions[array.indexOf(box)].width}

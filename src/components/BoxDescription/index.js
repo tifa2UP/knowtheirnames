@@ -14,7 +14,7 @@ export default class BoxDescription extends Component {
           </div>
         </div>
          <nav>
-          <a href="#" id="back" style={{color: "#fff"}} onClick={this.props.onClose}>
+          <a href="/" id="back" style={{color: "#fff"}} >
             <i className="fa fa-close" />
           </a>
         </nav>
