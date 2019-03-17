@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { ThemeProvider } from "styled-components";
+import { connect } from 'react-redux';
 
-export default class BoxDescription extends Component {
+import { toggleModal } from "../../redux/actions";
+
+class BoxDescription extends Component {
   render() {
     return (
       <div>
-        <div className="header-title invisible">
+        <div className="header-title">
           <div className="row">
             <div className="large-8 columns">
               <h2>{this.props.name}</h2>
@@ -13,12 +16,16 @@ export default class BoxDescription extends Component {
             </div>
           </div>
         </div>
-         <nav>
-          <a href="#" id="back" style={{color: "#fff"}} onClick={this.props.onClose}>
-            <i className="fa fa-close" />
-          </a>
-        </nav>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return ({
+    name: state.currentMemorial.name,
+    notes: state.currentMemorial.notes,
+  })
+}
+
+export default connect(mapStateToProps)(BoxDescription); 
