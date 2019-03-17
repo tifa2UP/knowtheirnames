@@ -6,8 +6,8 @@ class HomePage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeBox: false,
-    }
+      activeBox: false
+    };
   }
 
   getBoxDimensions(size) {
@@ -32,9 +32,15 @@ class HomePage extends Component {
 
   activateBox = () => {
     this.setState({
-      activeBox: true,
-    })
-  }
+      activeBox: true
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      activeBox: false
+    });
+  };
   render() {
     let array = [];
     for (let i = 0; i < 48; i++) {
@@ -51,22 +57,22 @@ class HomePage extends Component {
           left={boxDimensions[array.indexOf(box)].left}
           width={boxDimensions[array.indexOf(box)].width}
           onClick={this.activateBox}
+          notes={
+            "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum"
+          }
+          onClose={this.onClose}
           active={this.state.activeBox ? "invisible" : ""}
         />
       </div>
-    )); 
+    ));
     return (
       <div>
         <div className="logo">
-          <a href="index.html" style={{color: "white"}}>KNOW THEIR NAMES.</a>
+          <a href="index.html" style={{ color: "white" }}>
+            KNOW THEIR NAMES.
+          </a>
         </div>
         {BoxRenders}
-
-        <nav>
-          <a href="#" id="back" className="hide">
-            <i className="fa fa-close" />
-          </a>
-        </nav>
       </div>
     );
   }

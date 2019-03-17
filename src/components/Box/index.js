@@ -48,6 +48,15 @@ export default class Box extends Component {
       activeBox: true
     });
   };
+
+  onClose = () => {
+    console.log("onClose called");
+    this.setState({
+      activeBox: false
+    });
+    this.props.onClose();
+  };
+
   render() {
     return (
       <div onClick={this.onClick}>
@@ -73,7 +82,15 @@ export default class Box extends Component {
               </nav>
             </Layer>
           </BoxBackground>
-          {this.props.active? <BoxDescription /> : ""}
+          {this.props.active ? (
+            <BoxDescription
+              name={this.props.name}
+              notes={this.props.notes}
+              onClose={this.onClose}
+            />
+          ) : (
+            ""
+          )}
         </BoxStyle>
       </div>
     );
