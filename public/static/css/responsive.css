@@ -176,7 +176,7 @@
   .header span {
     font-size: 14px;
     bottom: 25%;
-    left: 70% !important; }
+    left: 20% !important; }
   .box:hover .header span {
     bottom: 25%; }
   .box.active .header-title {

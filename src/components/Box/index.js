@@ -5,8 +5,8 @@ let BoxStyle = styled.div`
   left: ${props => props.left}%!important;
   top: ${props => props.top}%!important;
   background: black;
-  width: 25%;
-  height: 25%;
+  width: ${props => props.width}%!important;
+  height: ${props => props.height}%!important;
 `;
 
 let BoxBackground = styled.div`
@@ -16,7 +16,7 @@ let BoxBackground = styled.div`
 `;
 
 let Layer = styled.div`
-  background-color: rgba(248, 247, 216, 0.7);
+  background-color: rgba(${props => props.color}, ${props => props.color}, ${props => props.color}, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -25,6 +25,9 @@ let Layer = styled.div`
 `;
 
 export default class Box extends Component {
+  getGreyColor = () => {
+    return Math.random() * 100;
+  }
   render() {
     return (
       <div>
@@ -33,9 +36,11 @@ export default class Box extends Component {
           className="box"
           left={this.props.left}
           top={this.props.top}
+          width={this.props.width}
+          height={this.props.width}
         >
           <BoxBackground className="header">
-            <Layer>
+            <Layer color={this.getGreyColor()} >
               <nav>
                 <h2>
                   <a href="#">
