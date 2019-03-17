@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import BoxDescription from '../BoxDescription';
 
 let BoxStyle = styled.div`
   left: ${props => props.left}%!important;
@@ -33,7 +34,7 @@ export default class Box extends Component {
       <div>
         <BoxStyle
           id="about"
-          className="box"
+          className={`box ${this.props.active}`}
           left={this.props.left}
           top={this.props.top}
           width={this.props.width}
@@ -50,6 +51,7 @@ export default class Box extends Component {
               </nav>
             </Layer>
           </BoxBackground>
+          <BoxDescription />
         </BoxStyle>
       </div>
     );
