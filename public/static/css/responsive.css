@@ -196,7 +196,7 @@
     top: 20%;
     transform: translate3d(-50%, -30%, 0) scale(1.01); }
   .box.active .header-title {
-    /* top: 60%; */
+    top: 40%;
     bottom: 30px; }
     .box.active .header-title h2 {
       font-size: 28px;

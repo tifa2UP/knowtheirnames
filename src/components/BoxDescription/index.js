@@ -14,11 +14,19 @@ const ContributeDiv = styled.div`
 `;
 
 export default class BoxDescription extends Component {
+  getFirstName = () => {
+    return this.props.name.substring(0, this.props.name.indexOf(" "));
+  };
   getNotes = () => {
     if (this.props.notes != "") {
       return this.props.notes;
     } else {
-      return <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">share their story</a>;
+      return (
+        <span>
+          We don't have enough information about {this.getFirstName()} yet,{" "}
+          <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">share their story</a>
+        </span>
+      );
     }
   };
 
@@ -64,7 +72,13 @@ export default class BoxDescription extends Component {
                 </li>
               </ul>
               <div h style={{ fontSize: 16 }}>
-                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Add information</a> | <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">Donate</a>
+                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">
+                  Add information
+                </a>{" "}
+                |{" "}
+                <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">
+                  Donate
+                </a>
               </div>
             </div>
           </div>
