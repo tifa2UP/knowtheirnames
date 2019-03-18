@@ -23,8 +23,8 @@ export default class BoxDescription extends Component {
     } else {
       return (
         <span>
-          We don't have enough information about {this.getFirstName()} yet,{" "}
-          <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">share their story</a>
+          We don't have enough information about {this.getFirstName()} yet. {" "}
+          <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Help us add their story.</a>
         </span>
       );
     }
