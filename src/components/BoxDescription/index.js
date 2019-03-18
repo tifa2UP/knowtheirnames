@@ -52,7 +52,7 @@ export default class BoxDescription extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="https://twitter.com/home?status=knowtheirname.com">
+                  <a href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com">
                     <i className="fa fab fa-twitter-square" />{" "}
                   </a>
                 </li>
@@ -72,13 +72,11 @@ export default class BoxDescription extends Component {
                 </li>
               </ul>
               <div h style={{ fontSize: 16 }}>
-                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">
-                  Add information
-                </a>{" "}
-                |{" "}
                 <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">
                   Donate
-                </a>
+                </a>{" "}
+                |{" "}
+                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Contact us</a>{" "}
               </div>
             </div>
           </div>
