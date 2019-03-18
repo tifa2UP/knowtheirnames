@@ -180,9 +180,9 @@
   .box:hover .header span {
     bottom: 25%; }
   .box.active .header-title {
-    color: #000; }
+    color: #fff; }
   .box.active .header-title h2 {
-    color: #000; }
+    color: #fff; }
   #about.box.active svg, #works.box.active svg, #blog.box.active svg, #contact.box.active svg {
     display: block; }
   .box.active svg#svg-graphic-about, .box.active svg#svg-graphic-works, .box.active svg#svg-graphic-blog, .box.active svg#svg-graphic-contact {

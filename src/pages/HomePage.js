@@ -84,7 +84,7 @@ class HomePage extends Component {
     return (
       <div>
         <div className="logo">
-          <a href="/" style={{ color: "white" }}>
+          <a href="/" style={{ color: "white", textDecoration: "none !important" }}>
             KNOW THEIR NAMES.
           </a>
         </div>

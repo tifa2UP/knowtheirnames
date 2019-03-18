@@ -2,6 +2,13 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 export default class BoxDescription extends Component {
+  getNotes = () => {
+    if (this.props.notes != "") {
+      return this.props.notes;
+    } else {
+      return <a href="">share their story</a>;
+    }
+  };
   render() {
     return (
       <div>
@@ -9,12 +16,12 @@ export default class BoxDescription extends Component {
           <div className="row">
             <div className="large-8 columns">
               <h2>{this.props.name}</h2>
-              <p>{this.props.notes}</p>
+              <p>{this.getNotes()}</p>
             </div>
           </div>
         </div>
-         <nav>
-          <a href="/" id="back" style={{color: "#fff"}} >
+        <nav>
+          <a href="/" id="back" style={{ color: "#fff" }}>
             <i className="fa fa-close" />
           </a>
         </nav>
