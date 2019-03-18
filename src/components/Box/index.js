@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from 'react-redux';
+import LazyLoad from 'react-lazyload';
+
+import { toggleModal, setCurrentMemorial } from '../../redux/actions';
 import BoxDescription from "../BoxDescription";
 
 let BoxStyle = styled.div`
-  left: ${props => (props.active ? "" : props.left)}%!important;
-  top: ${props => (props.active ? "" : props.top)}%!important;
+  left: ${props => props.left}%!important;
+  top: ${props => props.top}%!important;
   background: black;
-  width: ${props => (props.active ? "" : props.width)}%!important;
-  height: ${props => (props.active ? "" : props.height)}%!important;
-  display: ${props => (props.active === "invisible" ? "display: none" : "")};
+  width: ${props =>  props.width}%!important;
+  height: ${props => props.height}%!important;
 `;
 
 let BoxBackground = styled.div`
@@ -32,45 +35,37 @@ let Layer = styled.div`
   height: 100%;
 `;
 
-export default class Box extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeBox: false
-    };
-  }
+class Box extends Component {
   getGreyColor = () => {
     return Math.round(Math.random() * 100);
   };
-
   onClick = () => {
-    this.props.onClick();
-    this.setState({
-      activeBox: true
-    });
+    if(this.props.showModal) {
+      this.handleClose();
+    } else{ 
+      this.props.toggleModal();
+      this.props.setCurrentMemorial(this.props)
+      document.body.style.overflow = 'hidden';
+      this.props.onClick();
+    }
   };
 
-  onClose = () => {
-    console.log("onClose called");
-    this.setState({
-      activeBox: false
-    });
-    this.props.onClose();
+  handleClose = () => {
+    document.body.style.overflow = 'scroll';
+    this.props.onClose();    
   };
 
   render() {
     return (
-      <div onClick={this.onClick}>
+      <LazyLoad height={this.props.width}>
         <BoxStyle
           id="about"
-          active={this.state.activeBox}
-          className={`box ${
-            this.state.activeBox ? "active" : this.props.active
-          }`}
+          className={`box`}
           left={this.props.left}
           top={this.props.top}
           width={this.props.width}
           height={this.props.width}
+          onClick={this.onClick}
         >
           <BoxBackground className="header" image={this.props.image}>
             <Layer color={this.getGreyColor()}>
@@ -83,17 +78,24 @@ export default class Box extends Component {
               </nav>
             </Layer>
           </BoxBackground>
-          {this.props.active ? (
-            <BoxDescription
-              name={this.props.name}
-              notes={this.props.notes}
-              onClose={this.onClose}
-            />
-          ) : (
-            ""
-          )}
         </BoxStyle>
-      </div>
+      </LazyLoad>
     );
   }
 }
+
+
+const mapStateToProps = (state) => {
+  return ({
+    showModal: state.showModal,
+  })
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toggleModal: () => dispatch(toggleModal()),
+    setCurrentMemorial: (id) => dispatch(setCurrentMemorial(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Box);

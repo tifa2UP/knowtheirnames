@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Clipboard from "react-clipboard.js";
-import styled from "styled-components";
 import "./share-bar.css";
+import styled, { ThemeProvider } from "styled-components";
+import { connect } from 'react-redux';
+
+import { toggleModal } from "../../redux/actions";
 
 const ContributeDiv = styled.div`
   visibility: visible;
@@ -13,7 +16,7 @@ const ContributeDiv = styled.div`
   color: #fff;
 `;
 
-export default class BoxDescription extends Component {
+class BoxDescription extends Component {
   getFirstName = () => {
     return this.props.name.substring(0, this.props.name.indexOf(" "));
   };
@@ -35,9 +38,8 @@ export default class BoxDescription extends Component {
       "Read " + this.props.name + "'s story " + window.location.href;
 
     return (
-      <div>
-        <div className="header-title invisible">
-          {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
+      <Container>
+        <div className="header-title">
           <div className="row">
             <div />
             <div className="large-8 columns">
@@ -83,12 +85,38 @@ export default class BoxDescription extends Component {
             </div>
           </div>
         </div>
-        <nav>
-          <a href="/" id="back" style={{ color: "#fff" }}>
-            <i className="fa fa-close" />
-          </a>
-        </nav>
-      </div>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  .header-title {
+    visibility: visible;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    z-index: 2;
+    padding-right: 10%;
+    color: #fff;
+  }
+  .header-title h2 {
+    font-size: 60px;
+    font-family: montserrat;
+    margin-bottom: 40px;
+  }
+  .header-title p {
+    font-size: 24px;
+    margin-bottom: 40px;
+    line-height: 1.3em;
+  }
+`;
+
+const mapStateToProps = (state) => {
+  return ({
+    name: state.currentMemorial.name,
+    notes: state.currentMemorial.notes,
+  })
+}
+
+export default connect(mapStateToProps)(BoxDescription); 

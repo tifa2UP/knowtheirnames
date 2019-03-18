@@ -1,5 +1,8 @@
 import React, { Component } from "react";
+
+import Modal from '../components/Modal';
 import Box from "../components/Box";
+import Logo from '../components/Logo';
 import { format } from "url";
 import styled from "styled-components";
 
@@ -138,20 +141,18 @@ class HomePage extends Component {
 
     let boxDimensions = this.getBoxDimensions(array.length);
     let BoxRenders = array.map(box => (
-      <div>
-        <Box
-          name={box.name}
-          key={box.id}
-          top={boxDimensions[array.indexOf(box)].top}
-          left={boxDimensions[array.indexOf(box)].left}
-          width={boxDimensions[array.indexOf(box)].width}
-          onClick={this.activateBox}
-          notes={box.notes}
-          image={box.picture_url}
-          onClose={this.onClose}
-          active={this.state.activeBox ? "invisible" : ""}
-        />
-      </div>
+      <Box
+        name={box.name}
+        key={box.name}
+        id={JSON.parse(box.id)}
+        top={boxDimensions[array.indexOf(box)].top}
+        left={boxDimensions[array.indexOf(box)].left}
+        width={boxDimensions[array.indexOf(box)].width}
+        notes={box.notes}
+        image={box.picture_url}
+        onClose={this.onClose}
+        onClick={this.activateBox}
+      />
     ));
 
     const DonationsPill = (
@@ -173,17 +174,13 @@ class HomePage extends Component {
     );
     return (
       <div onScroll={this.onScroll} style={{ scrollBehavior: "smooth" }}>
-        <div className="logo">
-          <a
-            href="/"
-            style={{ color: "white", textDecoration: "none !important" }}
-          >
-            KNOW THEIR NAMES.
-          </a>
+        <Logo />
+        <div className={'boxes'}>
+          {BoxRenders}
         </div>
-        {BoxRenders}
         {DonationsPill}
         {this.state.activeBox ? "" : DownPill}
+        <Modal />
       </div>
     );
   }
