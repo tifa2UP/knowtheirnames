@@ -16,7 +16,8 @@
 --------------*/
 /* base */
 a {
-  color: #ff5242;
+  color: #fff;
+  text-decoration: underline!important
 }
 
 a:hover {
@@ -208,6 +209,7 @@ hr {
   font-size: 24px;
   font-family: montserrat;
   font-weight: bold;
+  text-decoration: none!important;
 }
 
 /* home and nav */
