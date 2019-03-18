@@ -1,0 +1,6 @@
+.share-bar {
+  text-align: right;
+  position: fixed;
+  bottom: 44px; /* size of human thumb (apparent so, the UX people told me) */ 
+  right: 44px;
+}
