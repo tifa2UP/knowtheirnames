@@ -178,7 +178,7 @@ class HomePage extends Component {
             href="/"
             style={{ color: "white", textDecoration: "none !important" }}
           >
-            KNOW THEIR NAMES.
+            KNOW THEIR NAME.
           </a>
         </div>
         {BoxRenders}
