@@ -38,7 +38,7 @@ class BoxDescription extends Component {
       "Read " + this.props.name + "'s story " + window.location.href;
 
     return (
-      <div>
+      <Container>
         <div className="header-title">
           <div className="row">
             <div />
@@ -85,10 +85,32 @@ class BoxDescription extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }
+
+const Container = styled.div`
+  .header-title {
+    visibility: visible;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    z-index: 2;
+    padding-right: 10%;
+    color: #fff;
+  }
+  .header-title h2 {
+    font-size: 60px;
+    font-family: montserrat;
+    margin-bottom: 40px;
+  }
+  .header-title p {
+    font-size: 24px;
+    margin-bottom: 40px;
+    line-height: 1.3em;
+  }
+`;
 
 const mapStateToProps = (state) => {
   return ({
