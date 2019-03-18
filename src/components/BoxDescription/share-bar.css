@@ -3,6 +3,7 @@
   position: fixed;
   bottom: 44px; /* size of human thumb (apparent so, the UX people told me) */ 
   right: 44px;
+  font-size: 22px;
 }
 
 .share-button {
