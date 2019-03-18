@@ -64,20 +64,18 @@ class HomePage extends Component {
 
     let boxDimensions = this.getBoxDimensions(array.length);
     let BoxRenders = array.map(box => (
-      <div>
-        <Box
-          name={box.name}
-          key={box.name}
-          top={boxDimensions[array.indexOf(box)].top}
-          left={boxDimensions[array.indexOf(box)].left}
-          width={boxDimensions[array.indexOf(box)].width}
-          onClick={this.activateBox}
-          notes={box.notes}
-          image={box.picture_url}
-          onClose={this.onClose}
-          active={this.state.activeBox ? "invisible" : ""}
-        />
-      </div>
+      <Box
+        name={box.name}
+        key={box.name}
+        top={boxDimensions[array.indexOf(box)].top}
+        left={boxDimensions[array.indexOf(box)].left}
+        width={boxDimensions[array.indexOf(box)].width}
+        onClick={this.activateBox}
+        notes={box.notes}
+        image={box.picture_url}
+        onClose={this.onClose}
+        active={this.state.activeBox ? "invisible" : ""}
+      />
     ));
     return (
       <div>
