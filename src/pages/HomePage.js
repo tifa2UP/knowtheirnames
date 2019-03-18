@@ -1,10 +1,29 @@
 import React, { Component } from "react";
 
+import Modal from '../components/Modal';
 import Box from "../components/Box";
 import Logo from '../components/Logo';
 import { format } from "url";
-
 class HomePage extends Component {
+  shuffle = (array) => {
+    var currentIndex = array.length, temporaryValue, randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (0 !== currentIndex) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex -= 1;
+  
+      // And swap it with the current element.
+      temporaryValue = array[currentIndex];
+      array[currentIndex] = array[randomIndex];
+      array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
+  }
+
   getBoxDimensions(size) {
     let result = [];
     let top = 0;
@@ -17,7 +36,7 @@ class HomePage extends Component {
         width: increment
       });
       left += increment;
-      if (left == 100) {
+      if (left === 100) {
         left = 0;
         top += increment;
       }
@@ -25,31 +44,29 @@ class HomePage extends Component {
     return result;
   }
   render() {
-    let array = [];
-    for (let i = 0; i < 48; i++) {
-      array.push(i);
-    }
+    let array = require("../memorial.json");
+    // array = this.shuffle(array);
+
     let boxDimensions = this.getBoxDimensions(array.length);
-    console.log(boxDimensions);
     let BoxRenders = array.map(box => (
       <Box
-        name={"Abdellatif Abdelfattah"}
-        key={box}
+        name={box.name}
+        key={box.name}
+        id={JSON.parse(box.id)}
         top={boxDimensions[array.indexOf(box)].top}
         left={boxDimensions[array.indexOf(box)].left}
         width={boxDimensions[array.indexOf(box)].width}
-        id={box}
-        notes={
-          "lorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsumlorem ipsum"
-        }
+        notes={box.notes}
+        image={box.picture_url}
       />
     ));
     return (
       <div>
         <Logo />
         <div className={'boxes'}>
-        {BoxRenders}
+          {BoxRenders}
         </div>
+        <Modal/>
       </div>
     );
   }

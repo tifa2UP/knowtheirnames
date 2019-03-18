@@ -10,21 +10,22 @@ let Background = styled.div`
   flex: 1;
   -webkit-filter: grayscale(100%);
   background-size: cover !important;
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/poolwithme-f854f.appspot.com/o/D10s9q9X0AETD0D.jpg?alt=media&token=0ee75088-34a1-4d8b-8d07-dd32edfb9675") !important;
+  background-image: url(${props => props.image}) !important;
 `;
 
 class Modal extends React.Component {
   render() {
+    const memorial = this.props.currentMemorial
     return (
       this.props.showModal ? (
-        <Contianer >
+        <Contianer>
         <nav>
           <a id="back" onClick={this.props.onClose}>
             <i className="fa fa-times" />
           </a>
         </nav>
         <Logo />
-        <Background>
+        <Background {...this.props.currentMemorial}>
           <BoxDescription />
         </Background>
       </Contianer>
@@ -58,7 +59,8 @@ const Contianer = styled.div`
   animation-name: ${ fadeIn };
   animation-iteration-count: 1;
   animation-timing-function: ease-in;
-  animation-duration: 500ms;
+  animation-duration: 350ms;
+  z-index: 100;
 
   a {
     cursor: pointer;
@@ -75,6 +77,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     showModal: state.showModal,
+    currentMemorial: state.currentMemorial,
   }
 }
 
