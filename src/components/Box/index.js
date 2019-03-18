@@ -15,6 +15,7 @@ let BoxStyle = styled.div`
 `;
 
 let BoxBackground = styled.div`
+  filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
   background-size: cover !important;
   background-image: url(${props => props.image}) !important;
@@ -36,17 +37,19 @@ let Layer = styled.div`
 
 class Box extends Component {
   getGreyColor = () => {
-    return Math.random() * 100;
+    return Math.round(Math.random() * 100);
   };
   onClick = () => {
     this.props.toggleModal();
     this.props.setCurrentMemorial(this.props)
     document.body.style.overflow = 'hidden';
+    this.props.onClick();
   };
 
   onClose = () => {
     this.props.toggleModal();
     document.body.style.overflow = 'scroll';
+    this.props.onClose();
   };
 
   render() {

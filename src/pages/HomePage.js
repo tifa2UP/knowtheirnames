@@ -22,6 +22,48 @@ const DonationsPillStyle = styled.a`
   cursor: pointer;
   text-decoration: none !important;
 `;
+
+const DownPillStyle = styled.div`
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  color: black;
+  background: white;
+  width: fit-content;
+  border-radius: 90px;
+  box-shadow: 0 8px 18px 0 rgba(34, 49, 89, 0.1);
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  text-decoration: none !important;
+
+  @keyframes chevron-animation {
+    0% {
+      bottom: 5vh;
+    }
+    50% {
+      bottom: 4vh;
+    }
+  }
+`;
+
+const I = styled.i`
+  animation-name: chevron-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  will-change: auto;
+  padding-top: 10px;
+  font-size: 24px;
+
+  @keyframes chevron-animation {
+    0% {
+      bottom: 5vh;
+    }
+    50% {
+      bottom: 4vh;
+    }
+  }
+`;
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -85,7 +127,7 @@ class HomePage extends Component {
   };
 
   onScroll = () => {
-    console.log(document.documentElement.scrollTop )
+    console.log(document.documentElement.scrollTop);
     if (document.documentElement.scrollTop < 100) {
     } else {
       this.setState({
@@ -108,6 +150,8 @@ class HomePage extends Component {
         width={boxDimensions[array.indexOf(box)].width}
         notes={box.notes}
         image={box.picture_url}
+        onClose={this.onClose}
+        onClick={this.activateBox}
       />
     ));
 
@@ -122,14 +166,21 @@ class HomePage extends Component {
         Donate to the families
       </DonationsPillStyle>
     );
+
+    const DownPill = (
+      <DownPillStyle onMouseDown={() => window.scrollBy(0, 200)}>
+        <I style={{}} className="fa fa-angle-down" />
+      </DownPillStyle>
+    );
     return (
-      <div>
+      <div onScroll={this.onScroll} style={{ scrollBehavior: "smooth" }}>
         <Logo />
         <div className={'boxes'}>
           {BoxRenders}
         </div>
         {DonationsPill}
-        <Modal/>
+        {this.state.activeBox ? "" : DownPill}
+        <Modal />
       </div>
     );
   }
