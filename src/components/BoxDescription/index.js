@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import Clipboard from 'react-clipboard.js';
 import styled from "styled-components";
 
 import './share-bar.css';
@@ -12,6 +13,8 @@ export default class BoxDescription extends Component {
     }
   };
   render() {
+    const clipboardMessage = 'Read ' + this.props.name + '\'s story ' + window.location.href;
+
     return (
       <div>
         <div className="header-title invisible">
@@ -25,7 +28,7 @@ export default class BoxDescription extends Component {
                 <li><a href="#0"><i className="fa fab fa-facebook-square"></i> <span>Share on Facebook</span></a></li>
                 <li><a href="#0"><i className="fa fab fa-twitter-square"></i> <span>Share on Twitter</span></a></li>
                 <li><a href="#0"><i className="fa fab fa-linkedin"></i> <span>Share on LinkedIn</span></a></li>
-                <li><a href="#0"><i className="fa fas fa-link"></i> <span>Copy Link</span></a></li>
+                <li><Clipboard component="a" button-href="#" data-clipboard-text={clipboardMessage}><i className="fa fas fa-link"></i> Copy Link </Clipboard></li>
               </ul>
             </div>
           </div>
