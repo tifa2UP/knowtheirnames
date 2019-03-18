@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Clipboard from 'react-clipboard.js';
+import Clipboard from "react-clipboard.js";
 import styled from "styled-components";
 import "./share-bar.css";
 
@@ -18,17 +18,18 @@ export default class BoxDescription extends Component {
     if (this.props.notes != "") {
       return this.props.notes;
     } else {
-      return <a href="">share their story</a>;
+      return <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">share their story</a>;
     }
   };
 
   render() {
-    const clipboardMessage = 'Read ' + this.props.name + '\'s story ' + window.location.href;
+    const clipboardMessage =
+      "Read " + this.props.name + "'s story " + window.location.href;
 
     return (
       <div>
         <div className="header-title invisible">
-        {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
+          {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
           <div className="row">
             <div />
             <div className="large-8 columns">
@@ -36,12 +37,35 @@ export default class BoxDescription extends Component {
               <p>{this.getNotes()}</p>
             </div>
             <div className="share-bar">
-              <ul className="vertical medium-horizontal menu">
-                <li><a href="#0"><i className="fa fab fa-facebook-square"></i> <span>Share on Facebook</span></a></li>
-                <li><a href="#0"><i className="fa fab fa-twitter-square"></i> <span>Share on Twitter</span></a></li>
-                <li><a href="#0"><i className="fa fab fa-linkedin"></i> <span>Share on LinkedIn</span></a></li>
-                <li><Clipboard component="a" button-href="#" data-clipboard-text={clipboardMessage}><i className="fa fas fa-link"></i> Copy Link </Clipboard></li>
+              <ul className=" medium-horizontal menu">
+                <li>
+                  <a href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com">
+                    <i className="fa fab fa-facebook-square" />
+                  </a>
+                </li>
+                <li>
+                  <a href="https://twitter.com/home?status=knowtheirname.com">
+                    <i className="fa fab fa-twitter-square" />{" "}
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source=">
+                    <i className="fa fab fa-linkedin-square" />{" "}
+                  </a>
+                </li>
+                <li>
+                  <Clipboard
+                    component="a"
+                    button-href="#"
+                    data-clipboard-text={clipboardMessage}
+                  >
+                    <i className="fa fas fa-link" />{" "}
+                  </Clipboard>
+                </li>
               </ul>
+              <div h style={{ fontSize: 16 }}>
+                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Add information</a> | <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">Donate</a>
+              </div>
             </div>
           </div>
         </div>
