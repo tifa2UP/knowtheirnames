@@ -4,3 +4,7 @@
   bottom: 44px; /* size of human thumb (apparent so, the UX people told me) */ 
   right: 44px;
 }
+
+.share-button {
+  line-height: 44px;
+}
