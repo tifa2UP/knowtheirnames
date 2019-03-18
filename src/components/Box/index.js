@@ -44,6 +44,7 @@ export default class Box extends Component {
   };
 
   onClick = () => {
+    document.body.style.overflow = "hidden";
     this.props.onClick();
     this.setState({
       activeBox: true
