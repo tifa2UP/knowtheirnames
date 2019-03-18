@@ -5,7 +5,35 @@
       <meta charset="utf-8" />
       <meta http-equiv="X-UA-Compatible" content="IE=edge" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <title>Know their name - the story behind each of the Christchurch shooting victims</title>
+      <title>
+        Know their name - the story behind each of the Christchurch shooting
+        victims
+      </title>
+
+      <!-- OPEN GRAPH -->
+
+      <!-- Title, without branding. -->
+      <meta
+        property="og:title"
+        content="Know their name - the story behind each of the Christchurch shooting
+        victims"
+      />
+      <!-- Name, not URL (e.g. Apple, not apple.com) -->
+      <meta property="og:site_name" content="Know their name" />
+      <!-- URL. Should match canonical URL for SEO. Unique identifier for your article. -->
+      <meta property="og:url" content="https://knowtheirname.com" />
+      <!-- OPTIONAL description. 2-4 sentences. -->
+      <meta
+        property="og:description"
+        content="The full list of the Christchurch, New Zealand shooting victims. Read their stories— know their names— and learn how beautiful these souls were. Contribute to their story or share it to let the world know about them"
+      />
+      <meta name="description" content="The full list of the Christchurch, New Zealand shooting victims. Read their stories and learn how beautiful these souls were. Contribute to their story or share it to let the world know about them">
+
+      <!-- Image for article. Facebook suggests at least 1200 x 630. -->
+      <meta property="og:image" content="%PUBLIC_URL%/static/og.png" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+
       <link rel="stylesheet" href="%PUBLIC_URL%/static/css/foundation.css" />
       <link rel="stylesheet" href="%PUBLIC_URL%/static/css/slick.css" />
       <link rel="stylesheet" href="%PUBLIC_URL%/static/css/slick-theme.css" />
@@ -38,7 +66,7 @@
       />
     </head>
     <body>
-    <!-- <body style="background: #8A0707;"> -->
+      <!-- <body style="background: #8A0707;"> -->
       <noscript>You need to enable JavaScript to run this app.</noscript>
       <div id="root"></div>
       <!--
@@ -57,8 +85,25 @@
       <script src="%PUBLIC_URL%/bower_components/countto/jquery.countTo.js"></script>
       <script src="%PUBLIC_URL%/js/jquery.appear.js"></script>
       <script src="%PUBLIC_URL%/js/jquery.validate.js"></script>
-      <script src="%PUBLIC_URL%/js/slick.min.js" type="text/javascript"></script>
+      <script
+        src="%PUBLIC_URL%/js/slick.min.js"
+        type="text/javascript"
+      ></script>
       <script src="%PUBLIC_URL%/js/app.js"></script>
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-136434473-1"
+      ></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag("js", new Date());
+
+        gtag("config", "UA-136434473-1");
+      </script>
     </body>
   </html>
 </html>
