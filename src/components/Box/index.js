@@ -12,6 +12,7 @@ let BoxStyle = styled.div`
 `;
 
 let BoxBackground = styled.div`
+  filter: grayscale(100%);
   -webkit-filter: grayscale(100%);
   background-size: cover !important;
   background-image: url(${props => props.image}) !important;
@@ -39,7 +40,7 @@ export default class Box extends Component {
     };
   }
   getGreyColor = () => {
-    return Math.random() * 100;
+    return Math.round(Math.random() * 100);
   };
 
   onClick = () => {
