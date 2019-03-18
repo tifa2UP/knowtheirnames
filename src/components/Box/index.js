@@ -40,16 +40,19 @@ class Box extends Component {
     return Math.round(Math.random() * 100);
   };
   onClick = () => {
-    this.props.toggleModal();
-    this.props.setCurrentMemorial(this.props)
-    document.body.style.overflow = 'hidden';
-    this.props.onClick();
+    if(this.props.showModal) {
+      this.handleClose();
+    } else{ 
+      this.props.toggleModal();
+      this.props.setCurrentMemorial(this.props)
+      document.body.style.overflow = 'hidden';
+      this.props.onClick();
+    }
   };
 
-  onClose = () => {
-    this.props.toggleModal();
+  handleClose = () => {
     document.body.style.overflow = 'scroll';
-    this.props.onClose();
+    this.props.onClose();    
   };
 
   render() {
