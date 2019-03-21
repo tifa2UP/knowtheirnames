@@ -42,7 +42,7 @@ export default class BoxDescription extends Component {
           {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
           <div className="row">
             <div />
-            <div className="large-8 columns">
+            <div className="large-8 columns profile-copy">
               <h2>{this.props.name}</h2>
               <p>{this.getNotes()}</p>
             </div>

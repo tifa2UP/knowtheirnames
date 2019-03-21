@@ -583,6 +583,12 @@ body > svg {
   padding-right: 10%;
   color: #fff;
 }
+.profile-copy {
+  background-color: rgba(100, 100, 100, .6);
+  padding-top: 15px;
+  position: relative;
+  top: -15px;
+}
 .box.active .header-title h2 {
   font-size: 60px;
   font-family: montserrat;
