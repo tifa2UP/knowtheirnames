@@ -30,6 +30,15 @@ let Layer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+
+  ${BoxStyle}:hover & {
+    background-color: rgba(
+      ${props => props.color},
+      ${props => props.color},
+      ${props => props.color},
+      0.3
+    );
+  }
 `;
 
 export default class Box extends Component {
@@ -74,7 +83,7 @@ export default class Box extends Component {
           height={this.props.width}
         >
           <BoxBackground className="header" image={this.props.image}>
-            <Layer color={this.getGreyColor()}>
+            <Layer className="header__layer" color={this.getGreyColor()}>
               <nav>
                 <h2>
                   <a href="#">

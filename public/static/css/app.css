@@ -294,6 +294,11 @@ hr {
   max-width: 250px;
 }
 
+.header__layer {
+  transition-property: background-color;
+  transition-duration: 0.3s;
+}
+
 #about .header span {
   left: 20%;
 }
