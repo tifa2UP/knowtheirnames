@@ -399,13 +399,6 @@ hr {
   -webkit-tap-highlight-color: transparent;
 }
 
-#back:hover {
-  transform: rotate(360deg);
-  transition-property: transform;
-  transition-duration: 0.6s;
-  transition-timing-function: ease;
-}
-
 svg path,
 svg polygon {
   transform: scale(0.9);
