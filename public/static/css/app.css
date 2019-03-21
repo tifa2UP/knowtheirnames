@@ -221,6 +221,11 @@ hr {
   overflow: hidden;
 }
 
+.box--about:not(.active) {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
 #about {
   left: 0;
   top: 0;
@@ -297,6 +302,10 @@ hr {
 .header__layer {
   transition-property: background-color;
   transition-duration: 0.3s;
+}
+
+.box.active .header__layer {
+  background-color: transparent !important;
 }
 
 #about .header span {

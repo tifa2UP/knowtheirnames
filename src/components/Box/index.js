@@ -12,8 +12,6 @@ let BoxStyle = styled.div`
 `;
 
 let BoxBackground = styled.div`
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
   background-size: cover !important;
   background-image: url(${props => props.image}) !important;
 `;
@@ -74,7 +72,7 @@ export default class Box extends Component {
         <BoxStyle
           id="about"
           active={this.state.activeBox}
-          className={`box ${
+          className={`box box--about ${
             this.state.activeBox ? "active" : this.props.active
           }`}
           left={this.props.left}
