@@ -23,8 +23,10 @@ export default class BoxDescription extends Component {
     } else {
       return (
         <span>
-          We don't have enough information about {this.getFirstName()} yet. {" "}
-          <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Help us add their story.</a>
+          We don't have enough information about {this.getFirstName()} yet.{" "}
+          <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">
+            Help us add their story.
+          </a>
         </span>
       );
     }
@@ -71,7 +73,7 @@ export default class BoxDescription extends Component {
                   </Clipboard>
                 </li>
               </ul>
-              <div h style={{ fontSize: 16 }}>
+              <div style={{ fontSize: 16 }}>
                 <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">
                   Donate
                 </a>{" "}
