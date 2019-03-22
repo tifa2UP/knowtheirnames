@@ -12,8 +12,6 @@ let BoxStyle = styled.div`
 `;
 
 let BoxBackground = styled.div`
-  filter: grayscale(100%);
-  -webkit-filter: grayscale(100%);
   background-size: cover !important;
   background-image: url(${props => props.image}) !important;
 `;
@@ -30,6 +28,15 @@ let Layer = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+
+  ${BoxStyle}:hover & {
+    background-color: rgba(
+      ${props => props.color},
+      ${props => props.color},
+      ${props => props.color},
+      0.3
+    );
+  }
 `;
 
 export default class Box extends Component {
@@ -65,7 +72,7 @@ export default class Box extends Component {
         <BoxStyle
           id="about"
           active={this.state.activeBox}
-          className={`box ${
+          className={`box box--about ${
             this.state.activeBox ? "active" : this.props.active
           }`}
           left={this.props.left}
@@ -74,7 +81,7 @@ export default class Box extends Component {
           height={this.props.width}
         >
           <BoxBackground className="header" image={this.props.image}>
-            <Layer color={this.getGreyColor()}>
+            <Layer className="header__layer" color={this.getGreyColor()}>
               <nav>
                 <h2>
                   <a href="#">

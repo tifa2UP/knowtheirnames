@@ -221,6 +221,11 @@ hr {
   overflow: hidden;
 }
 
+.box--about:not(.active) {
+  filter: grayscale(100%);
+  -webkit-filter: grayscale(100%);
+}
+
 #about {
   left: 0;
   top: 0;
@@ -292,6 +297,15 @@ hr {
   transition-property: left;
   transition-duration: 0.3s;
   max-width: 250px;
+}
+
+.header__layer {
+  transition-property: background-color;
+  transition-duration: 0.3s;
+}
+
+.box.active .header__layer {
+  background-color: transparent !important;
 }
 
 #about .header span {
@@ -383,13 +397,6 @@ hr {
   line-height: 36px;
   padding: 20px;
   -webkit-tap-highlight-color: transparent;
-}
-
-#back:hover {
-  transform: rotate(360deg);
-  transition-property: transform;
-  transition-duration: 0.6s;
-  transition-timing-function: ease;
 }
 
 svg path,
@@ -568,6 +575,12 @@ body > svg {
   z-index: 2;
   padding-right: 10%;
   color: #fff;
+}
+.profile-copy {
+  background-color: rgba(100, 100, 100, .6);
+  padding-top: 15px;
+  position: relative;
+  top: -15px;
 }
 .box.active .header-title h2 {
   font-size: 60px;

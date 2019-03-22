@@ -4,6 +4,10 @@
   bottom: 44px; /* size of human thumb (apparent so, the UX people told me) */ 
   right: 44px;
   font-size: 22px;
+
+  background-color: rgba(100, 100, 100, .6);
+  padding-right: 10px;
+  padding-bottom: 5px;
 }
 
 .share-button {
