@@ -69,7 +69,7 @@ export default class BoxDescription extends Component {
                     button-href="#"
                     data-clipboard-text={clipboardMessage}
                   >
-                    <i className="fa fas fa-link" />{" "}
+                    <span className="fa fas fa-link"> </span>
                   </Clipboard>
                 </li>
               </ul>
