@@ -82,6 +82,15 @@ export default class Box extends Component {
     this.props.onClose();
   };
 
+  // Temporary until we get router going.
+  //
+  // If the link goes to #box-description-id, then the browser will scroll to it,
+  // this happens after the box-description is already opening up according to
+  // the previous scrollY/pageYOffset making it appear above/below the screen.
+  preventHashtag = event => {
+    event.preventDefault();
+  };
+
   render() {
     // console.log("rendered: ", this.props.name, this.props.active);
     return (
@@ -99,7 +108,11 @@ export default class Box extends Component {
             <Layer className="header__layer" color={this.getGreyColor()}>
               <nav>
                 <h2>
-                  <a className="cursor--pointer">
+                  <a
+                    href={"#" + this.props.slug}
+                    onClick={this.preventHashtag}
+                    className="cursor--pointer"
+                  >
                     <span>{this.props.name}</span>
                   </a>
                 </h2>
@@ -108,6 +121,9 @@ export default class Box extends Component {
           </BoxBackground>
           {this.state.activeBox ? (
             <BoxDescription
+              tabIndex="0"
+              id={this.props.slug}
+              image={this.props.image}
               name={this.props.name}
               notes={this.props.notes}
               onClose={this.onClose}

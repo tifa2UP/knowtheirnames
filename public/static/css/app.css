@@ -579,6 +579,26 @@ body > svg {
   /* Overlay scrolldown button */
   z-index: 20;
 }
+.box__description {
+  /* contents are currently absolutely positioned, maximize dimensions so that
+     receiving focus makes visual sense */
+  height: 100%;
+}
+/* Show focus
+   Credit:
+   @link https://ghinda.net/article/mimic-native-focus-css/
+ */
+.box__description:focus {
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: Highlight;
+}
+@media (-webkit-min-device-pixel-ratio:0) {
+  .box__description:focus {
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+  }
+}
 .box.active .header-title {
   visibility: visible;
   position: absolute;
@@ -618,9 +638,10 @@ body > svg {
   overflow: hidden;
 }
 .box.active .header {
-  position: relative;
+  display: none;
+  /* position: relative;
   width: 100%;
-  overflow: visible;
+  overflow: visible; */
 }
 .box.active .header span {
   display: none;
