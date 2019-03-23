@@ -44,8 +44,19 @@ export default class BoxDescription extends Component {
       "Read " + this.props.name + "'s story " + window.location.href;
 
     return (
-      <div>
-        <div className="header-title invisible">
+      <div
+        className="box__description"
+        id={this.props.id}
+        tabIndex={this.props.tabIndex}
+        // Temporary workaround to hiding sibling that has bg, we'll have to use
+        // an actual image at some point for a11y purposes. Background images
+        // will never get read by screen readers.
+        style={
+          ({ backgroundSize: "cover" },
+          { backgroundImage: "url(" + this.props.image + ")" })
+        }
+      >
+        <div className="header-title">
           {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
           <div className="row">
             <div />
@@ -56,17 +67,29 @@ export default class BoxDescription extends Component {
             <div className="share-bar">
               <ul className=" medium-horizontal menu">
                 <li>
-                  <a href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com">
+                  <a
+                    href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
+                    target="_blank"
+                  >
+                    <span className="show-for-sr">
+                      Share this site on Facebook
+                    </span>
                     <i className="fa fab fa-facebook-square" />
                   </a>
                 </li>
                 <li>
                   <a href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com">
+                    <span className="show-for-sr">
+                      Share this site on Twitter
+                    </span>
                     <i className="fa fab fa-twitter-square" />{" "}
                   </a>
                 </li>
                 <li>
                   <a href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source=">
+                    <span className="show-for-sr">
+                      Share this site on LinkedIn
+                    </span>
                     <i className="fa fab fa-linkedin-square" />{" "}
                   </a>
                 </li>
@@ -76,6 +99,7 @@ export default class BoxDescription extends Component {
                     button-href="#"
                     data-clipboard-text={clipboardMessage}
                   >
+                    <span className="show-for-sr">Copy this link</span>
                     <span className="fa fas fa-link"> </span>
                   </Clipboard>
                 </li>
@@ -102,6 +126,9 @@ export default class BoxDescription extends Component {
             onClick={this.close}
             className="box__close cursor--pointer"
           >
+            <span className="show-for-sr">
+              Close this profile and go back to main page
+            </span>
             <i className="fa fa-close" />
           </button>
         </nav>

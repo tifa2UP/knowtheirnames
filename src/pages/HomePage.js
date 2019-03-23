@@ -85,7 +85,7 @@ class HomePage extends Component {
   };
 
   onScroll = () => {
-    console.log(document.documentElement.scrollTop);
+    // console.log(document.documentElement.scrollTop);
     if (document.documentElement.scrollTop < 100) {
     } else {
       this.setState({
@@ -102,6 +102,7 @@ class HomePage extends Component {
     let boxDimensions = this.getBoxDimensions(array.length);
     let BoxRenders = array.map(box => (
       <Box
+        slug={box.name.toLowerCase().replace(/\s/g, "-")}
         name={box.name}
         key={box.id}
         top={boxDimensions[array.indexOf(box)].top}
@@ -135,6 +136,7 @@ class HomePage extends Component {
         className="downpill"
         onMouseDown={() => window.scrollBy(0, 200)}
       >
+        <span className="show-for-sr">Scroll down</span>
         <span className="downpill__icon fa fa-angle-down" />
       </button>
     );
