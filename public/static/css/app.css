@@ -46,6 +46,10 @@ a.load-more:hover {
   transform: translateX(-50%) scale(1);
 }
 
+.cursor--pointer {
+  cursor: pointer;
+}
+
 .spacing {
   height: 20px;
   clear: both;
@@ -387,7 +391,8 @@ hr {
   transition-duration: 0.2s;
 }
 
-#back {
+/* Abed: I'm hesitant to remove the #back id as it may tied down with some jQuery code */
+#back, .box__close {
   position: fixed;
   color: #000;
   z-index: 999;
@@ -395,8 +400,13 @@ hr {
   right: 25px;
   font-size: 36px;
   line-height: 36px;
-  padding: 20px;
+  /* Abed: Reducing this to 5px so the clickable area is roughly 40px */
+  /* padding: 20px; */
+  padding: 5px;
   -webkit-tap-highlight-color: transparent;
+}
+.box:not(.active) .box__close {
+  display: none;
 }
 
 svg path,
@@ -566,6 +576,8 @@ body > svg {
   padding: 80px 20px 20px;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
+  /* Overlay scrolldown button */
+  z-index: 20;
 }
 .box.active .header-title {
   visibility: visible;
@@ -829,6 +841,41 @@ body > svg {
   }
   to {
     transform: translateY(5px);
+  }
+}
+
+/* formerly DownPillStyle styled component */
+.downpill {
+  position: fixed;
+  bottom: 20px;
+  right: 10px;
+  color: black;
+  background: white;
+  width: fit-content;
+  border-radius: 90px;
+  box-shadow: 0 8px 18px 0 rgba(34, 49, 89, 0.1);
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  text-decoration: none !important;
+}
+/* formerly I styled component */
+.downpill__icon {
+  animation-name: chevron-animation;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  will-change: auto;
+  /* no longer needed as a <button> */
+  /* padding-top: 10px; */
+  /* !important needed to override .fa */
+  font-size: 24px !important;
+}
+@keyframes chevron-animation {
+  0% {
+    bottom: 5vh;
+  }
+  50% {
+    bottom: 4vh;
   }
 }
 
