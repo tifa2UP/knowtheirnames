@@ -93,6 +93,7 @@ class HomePage extends Component {
       });
     }
   };
+
   render() {
     // This is now imported once at the top instead of every render.
     // const array = require("../memorial.json");
