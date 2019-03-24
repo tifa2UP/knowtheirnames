@@ -70,6 +70,7 @@ export default class BoxDescription extends Component {
                   <a
                     href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
                     target="_blank"
+                    rel="noopener"
                   >
                     <span className="show-for-sr">
                       Share this site on Facebook
@@ -78,7 +79,11 @@ export default class BoxDescription extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com">
+                  <a
+                    href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com"
+                    target="_blank"
+                    rel="noopener"
+                  >
                     <span className="show-for-sr">
                       Share this site on Twitter
                     </span>
@@ -86,7 +91,11 @@ export default class BoxDescription extends Component {
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source=">
+                  <a
+                    href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source="
+                    target="_blank"
+                    rel="noopener"
+                  >
                     <span className="show-for-sr">
                       Share this site on LinkedIn
                     </span>
@@ -105,11 +114,21 @@ export default class BoxDescription extends Component {
                 </li>
               </ul>
               <div style={{ fontSize: 16 }}>
-                <a href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/">
+                <a
+                  href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/"
+                  target="_blank"
+                  rel="noopener"
+                >
                   Donate
                 </a>{" "}
                 |{" "}
-                <a href="https://goo.gl/forms/43iofEQLgtYJr5AH3">Contact us</a>{" "}
+                <a
+                  href="https://goo.gl/forms/43iofEQLgtYJr5AH3"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Contact us
+                </a>{" "}
               </div>
             </div>
           </div>
