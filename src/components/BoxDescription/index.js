@@ -44,8 +44,33 @@ export default class BoxDescription extends Component {
     }
   };
 
+  // Document-wide listener for Escape key press instead of component-/element-specific,
+  // because otherwise we'd have to wait for the user to navigate to the close button
+  // itself first, at which point they may as well press enter rather than escape.
+  //
+  // Implementation credits:
+  // @link https://stackoverflow.com/a/46123962/781824
+  // @link https://medium.com/@uistephen/keyboardevent-key-for-cross-browser-key-press-check-61dbad0a067a
+  escape = event => {
+    if (
+      event.key === "Escape" ||
+      event.code === "Escape" ||
+      event.keyCode === 27
+    ) {
+      // Important to continue to use existing methods, e.g. somewhere up the
+      // chain of onClose, focus is restored. Definitely need that here.
+      if (this.props.onClose && typeof this.props.onClose === "function") {
+        this.props.onClose();
+      }
+    }
+  };
+
   componentDidMount() {
     this.elementRef.current.focus();
+    document.addEventListener("keyup", this.escape, false);
+  }
+  componentWillUnmount() {
+    document.removeEventListener("keyup", this.escape, false);
   }
 
   render() {
