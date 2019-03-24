@@ -57,6 +57,8 @@ export default class Box extends Component {
     this.state = {
       activeBox: false
     };
+    // Reference for header name link so it can be focused on after the profile is closed
+    this.headerLinkRef = React.createRef();
   }
   getGreyColor = () => {
     return Math.round(Math.random() * 100);
@@ -80,6 +82,7 @@ export default class Box extends Component {
       activeBox: false
     });
     this.props.onClose();
+    this.justClosed = true;
   };
 
   // Temporary until we get router going.
@@ -90,6 +93,13 @@ export default class Box extends Component {
   preventHashtag = event => {
     event.preventDefault();
   };
+
+  componentDidUpdate() {
+    if (this.justClosed) {
+      this.headerLinkRef.current.focus();
+      this.justClosed = false;
+    }
+  }
 
   render() {
     // console.log("rendered: ", this.props.name, this.props.active);
@@ -111,9 +121,12 @@ export default class Box extends Component {
                   <a
                     href={"#" + this.props.slug}
                     onClick={this.preventHashtag}
-                    className="cursor--pointer"
+                    className="header__layer__link cursor--pointer"
+                    ref={this.headerLinkRef}
                   >
-                    <span>{this.props.name}</span>
+                    <span className="header__layer__link__text">
+                      {this.props.name}
+                    </span>
                   </a>
                 </h2>
               </nav>
