@@ -307,6 +307,17 @@ hr {
   transition-property: background-color;
   transition-duration: 0.3s;
 }
+.header__layer__link:focus .header__layer__link__text{
+  outline-width: 2px;
+  outline-style: solid;
+  outline-color: Highlight;
+}
+@media (-webkit-min-device-pixel-ratio:0) {
+  .header__layer__link:focus .header__layer__link__text{
+    outline-color: -webkit-focus-ring-color;
+    outline-style: auto;
+  }
+}
 
 .box.active .header__layer {
   background-color: transparent !important;

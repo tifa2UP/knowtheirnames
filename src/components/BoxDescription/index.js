@@ -14,6 +14,11 @@ const ContributeDiv = styled.div`
 `;
 
 export default class BoxDescription extends Component {
+  constructor(props) {
+    super(props);
+    // This will store a reference to the main node so it can be focused
+    this.elementRef = React.createRef();
+  }
   getFirstName = () => {
     return this.props.name.substring(0, this.props.name.indexOf(" "));
   };
@@ -39,22 +44,24 @@ export default class BoxDescription extends Component {
     }
   };
 
+  componentDidMount() {
+    this.elementRef.current.focus();
+  }
+
   render() {
     const clipboardMessage =
       "Read " + this.props.name + "'s story " + window.location.href;
 
     return (
       <div
+        ref={this.elementRef}
         className="box__description"
         id={this.props.id}
         tabIndex={this.props.tabIndex}
         // Temporary workaround to hiding sibling that has bg, we'll have to use
         // an actual image at some point for a11y purposes. Background images
         // will never get read by screen readers.
-        style={
-          ({ backgroundSize: "cover" },
-          { backgroundImage: "url(" + this.props.image + ")" })
-        }
+        style={{ backgroundImage: "url(" + this.props.image + ")" }}
       >
         <div className="header-title">
           {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
