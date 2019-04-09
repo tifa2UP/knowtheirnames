@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+// import { Helmet } from "react-helmet";
 import styled from "styled-components";
 import BoxDescription from "../BoxDescription";
 
@@ -59,6 +60,7 @@ export default class Box extends Component {
     };
     // Reference for header name link so it can be focused on after the profile is closed
     this.headerLinkRef = React.createRef();
+    this.userOpened = false;
   }
   getGreyColor = () => {
     return Math.round(Math.random() * 100);
@@ -67,6 +69,7 @@ export default class Box extends Component {
   onClick = () => {
     // console.log("Box onClick");
     document.body.style.overflow = "hidden";
+    this.userOpened = true;
     if (this.props.onClick && typeof this.props.onClick === "function") {
       this.props.onClick();
     }
@@ -82,6 +85,14 @@ export default class Box extends Component {
       activeBox: false
     });
     this.props.onClose();
+
+    // Maintain focus on this person's header link after closing the pop-up, if
+    // and only if they had gotten to the profile by clicking here to begin with
+    if (this.userOpened) {
+      this.headerLinkRef.current.focus();
+    }
+    this.userOpened = false;
+
     this.justClosed = true;
   };
 
@@ -104,7 +115,7 @@ export default class Box extends Component {
   render() {
     // console.log("rendered: ", this.props.name, this.props.active);
     return (
-      <div onClick={this.onClick}>
+      <article onClick={this.onClick}>
         <BoxStyle
           id="about"
           active={this.state.activeBox}
@@ -132,6 +143,7 @@ export default class Box extends Component {
               </nav>
             </Layer>
           </BoxBackground>
+          {/* <div aria-live="polite"> */}
           {this.state.activeBox ? (
             <BoxDescription
               tabIndex="0"
@@ -142,10 +154,11 @@ export default class Box extends Component {
               onClose={this.onClose}
             />
           ) : (
-            ""
+            "" // <Helmet defaultTitle={process.env.REACT_APP_DOC_TITLE} />
           )}
+          {/* </div> */}
         </BoxStyle>
-      </div>
+      </article>
     );
   }
 }

@@ -139,6 +139,8 @@ class HomePage extends Component {
         // Utterly useless for keyboard users without some advanced tab through logic,
         // so we'll keep it from being tabbable.
         tabIndex="-1"
+        // Prevent NVDA users from tabbing via b / shift+b (but if they use mouse it still reads the "Scroll down" below)
+        aria-hidden="true"
       >
         <span className="show-for-sr">Scroll down</span>
         <span className="downpill__icon fa fa-angle-down" />
@@ -146,14 +148,14 @@ class HomePage extends Component {
     );
     return (
       <div onScroll={this.onScroll} style={{ scrollBehavior: "smooth" }}>
-        <div className="logo">
+        <header className="logo" role="banner">
           <a
             href="/"
             style={{ color: "white", textDecoration: "none !important" }}
           >
             KNOW THEIR NAME.
           </a>
-        </div>
+        </header>
         {BoxRenders}
         {DonationsPill}
         {/* Remove reliance on state for DownPill so we don't need to re-render */}
