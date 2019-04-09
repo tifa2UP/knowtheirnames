@@ -136,6 +136,9 @@ class HomePage extends Component {
         type="button"
         className="downpill"
         onMouseDown={() => window.scrollBy(0, 200)}
+        // Utterly useless for keyboard users without some advanced tab through logic,
+        // so we'll keep it from being tabbable.
+        tabIndex="-1"
       >
         <span className="show-for-sr">Scroll down</span>
         <span className="downpill__icon fa fa-angle-down" />
