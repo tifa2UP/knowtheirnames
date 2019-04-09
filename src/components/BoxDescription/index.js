@@ -231,7 +231,8 @@ export default class BoxDescription extends Component {
                   <li>
                     <a
                       href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
-                      target="_blank"
+                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
                       rel="noopener"
                       ref={this.firstLinkRef}
                     >
@@ -244,7 +245,8 @@ export default class BoxDescription extends Component {
                   <li>
                     <a
                       href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com"
-                      target="_blank"
+                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
                       rel="noopener"
                     >
                       <span className="show-for-sr">
@@ -256,7 +258,8 @@ export default class BoxDescription extends Component {
                   <li>
                     <a
                       href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source="
-                      target="_blank"
+                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
                       rel="noopener"
                     >
                       <span className="show-for-sr">
@@ -280,7 +283,8 @@ export default class BoxDescription extends Component {
                 <div style={{ fontSize: 16 }}>
                   <a
                     href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/"
-                    target="_blank"
+                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
                     rel="noopener"
                   >
                     Donate
@@ -288,7 +292,8 @@ export default class BoxDescription extends Component {
                   |{" "}
                   <a
                     href="https://goo.gl/forms/43iofEQLgtYJr5AH3"
-                    target="_blank"
+                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
                     rel="noopener"
                   >
                     Contact us
