@@ -68,6 +68,7 @@ export default class Box extends Component {
 
   onClick = () => {
     // console.log("Box onClick");
+    document.documentElement.style.overflow = "hidden";
     document.body.style.overflow = "hidden";
     this.userOpened = true;
     if (this.props.onClick && typeof this.props.onClick === "function") {
@@ -80,6 +81,7 @@ export default class Box extends Component {
 
   onClose = () => {
     // console.log("onClose called");
+    document.documentElement.style.overflow = "";
     document.body.style.overflow = "";
     this.setState({
       activeBox: false
