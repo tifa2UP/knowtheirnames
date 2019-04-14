@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+import {
+  disablePageScroll,
+  enablePageScroll,
+  clearQueueScrollLocks
+} from "scroll-lock";
 import { Helmet } from "react-helmet";
 import Clipboard from "react-clipboard.js";
 import styled from "styled-components";
@@ -64,6 +69,7 @@ export default class BoxDescription extends Component {
   constructor(props) {
     super(props);
     // This will store a reference to the main node so it can be focused
+    this.modalRef = React.createRef();
     this.mainRef = React.createRef();
     this.firstLinkRef = React.createRef();
     this.closeRef = React.createRef();
@@ -153,7 +159,12 @@ export default class BoxDescription extends Component {
   };
 
   componentDidMount() {
+    // Body scroll lock on iOS
+    disablePageScroll(this.modalRef.current);
+
+    // Close on Escape key
     document.addEventListener("keyup", this.escape, false);
+    // Trap tabs within modal
     this.mainRef.current.addEventListener("keydown", this.mainTrapTab, false);
     this.mainRef.current.focus();
     this.firstLinkRef.current.addEventListener(
@@ -164,6 +175,8 @@ export default class BoxDescription extends Component {
     this.closeRef.current.addEventListener("keydown", this.closeTrapTab, false);
   }
   componentWillUnmount() {
+    clearQueueScrollLocks();
+    enablePageScroll(this.modalRef.current);
     document.removeEventListener("keyup", this.escape, false);
     this.mainRef.current.removeEventListener(
       "keydown",
@@ -201,6 +214,7 @@ export default class BoxDescription extends Component {
         // an actual image at some point for a11y purposes. Background images
         // will never get read by screen readers.
         style={{ backgroundImage: "url(" + this.props.image + ")" }}
+        ref={this.modalRef}
       >
         {/* 
           Created another wrapping div for this purpose:

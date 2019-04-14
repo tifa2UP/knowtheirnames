@@ -154,6 +154,7 @@ export default class Box extends Component {
               name={this.props.name}
               notes={this.props.notes}
               onClose={this.onClose}
+              parentRef={this.modalRef}
             />
           ) : (
             "" // <Helmet defaultTitle={process.env.REACT_APP_DOC_TITLE} />

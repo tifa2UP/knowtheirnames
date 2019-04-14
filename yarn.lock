@@ -7706,6 +7706,10 @@ schema-utils@^1.0.0:
     ajv-errors "^1.0.0"
     ajv-keywords "^3.1.0"
 
+scroll-lock@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/scroll-lock/-/scroll-lock-2.1.0.tgz#180b4b8c3f2e779f5f7cbd5c2dc6e1b7a603680d"
+
 select-hose@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/select-hose/-/select-hose-2.0.0.tgz#625d8658f865af43ec962bfc376a37359a4994ca"
