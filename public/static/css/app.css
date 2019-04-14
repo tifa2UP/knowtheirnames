@@ -601,13 +601,13 @@ body > svg {
    Credit:
    @link https://ghinda.net/article/mimic-native-focus-css/
  */
-.box__description:focus {
+.box__description:focus, .box__close:focus {
   outline-width: 2px;
   outline-style: solid;
   outline-color: Highlight;
 }
 @media (-webkit-min-device-pixel-ratio:0) {
-  .box__description:focus {
+  .box__description:focus, .box__close:focus {
     outline-color: -webkit-focus-ring-color;
     outline-style: auto;
   }
