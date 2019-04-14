@@ -223,6 +223,8 @@ hr {
   display: block;
   position: absolute;
   overflow: hidden;
+  /* IE11 compatibility, otherwise the modal (.box__description) appears with all the things */
+  z-index: 1;
 }
 
 .box--about:not(.active) {
