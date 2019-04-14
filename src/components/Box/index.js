@@ -18,7 +18,7 @@ let BoxStyle = styled.div`
     props.active ? window.pageYOffset + "px" : props.top + "%"}!important;
   background: black;
   width: ${props => (props.active ? "100" : props.width)}%!important;
-  height: ${props => (props.active ? "100" : props.height)}%!important;
+  height: ${props => (props.active ? "100vh" : props.height + "%")}!important;
   ${
     "" /* display: ${props => (props.active === "invisible" ? "display: none" : "")}; */
   }
