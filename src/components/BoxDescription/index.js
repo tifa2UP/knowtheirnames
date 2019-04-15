@@ -68,11 +68,12 @@ function isShiftTab(event) {
 export default class BoxDescription extends Component {
   constructor(props) {
     super(props);
-    // This will store a reference to the main node so it can be focused
     this.modalRef = React.createRef();
+    // This will store a reference to the main node so it can be focused
     this.mainRef = React.createRef();
     this.firstLinkRef = React.createRef();
     this.closeRef = React.createRef();
+    this.initialTransitionEnded = false;
   }
   getFirstName = () => {
     return this.props.name.substring(0, this.props.name.indexOf(" "));
@@ -158,15 +159,35 @@ export default class BoxDescription extends Component {
     // }
   };
 
+  focusAfterTransition = event => {
+    if (!this.initialTransitionEnded && event.propertyName === "top") {
+      this.initialTransitionEnded = true;
+      this.mainRef.current.focus();
+    }
+  };
+
   componentDidMount() {
-    // Body scroll lock on iOS
+    // a11y: Shift focus to main area of modal once it opens.
+    //
+    // Pitfall: If the opening .box is partially above the viewport, then if we
+    // focus on the transitioning .box__description (modal dialog) as it is opening,
+    // the viewport will scroll .box into view and the top position of the dialog
+    // will be skewed. So we have to time this with the transition.
+    this.props.parentRef.current.addEventListener(
+      "transitionend",
+      this.focusAfterTransition
+    );
+
+    // Body scroll lock especially for iOS
     disablePageScroll(this.modalRef.current);
+    // ^above handles the below
+    // document.documentElement.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
 
     // Close on Escape key
     document.addEventListener("keyup", this.escape, false);
     // Trap tabs within modal
     this.mainRef.current.addEventListener("keydown", this.mainTrapTab, false);
-    this.mainRef.current.focus();
     this.firstLinkRef.current.addEventListener(
       "keydown",
       this.linkTrapTab,
@@ -175,9 +196,22 @@ export default class BoxDescription extends Component {
     this.closeRef.current.addEventListener("keydown", this.closeTrapTab, false);
   }
   componentWillUnmount() {
+    // Clear transitionEnd listener
+    this.props.parentRef.current.removeEventListener(
+      "transitionend",
+      this.focusAfterTransition
+    );
+
+    // Clear body scroll lock
     clearQueueScrollLocks();
     enablePageScroll(this.modalRef.current);
+    // ^above handles the below
+    // document.documentElement.style.overflow = "";
+    // document.body.style.overflow = "";
+
+    // Clear escape
     document.removeEventListener("keyup", this.escape, false);
+    // Clear tab traps
     this.mainRef.current.removeEventListener(
       "keydown",
       this.mainTrapTab,
