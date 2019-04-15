@@ -100,10 +100,35 @@ export default class Box extends Component {
   };
 
   componentDidUpdate() {
+    if (!this.state.activeBox) {
+      // If an inline style exists, e.g. via orientation change, don't mess
+      this.boxRef.current.style.top = "";
+    }
     if (this.justClosed) {
       this.headerLinkRef.current.focus();
       this.justClosed = false;
     }
+  }
+
+  repositionActiveBox = () => {
+    if (this.state.activeBox && this.boxRef.current) {
+      this.boxRef.current.style.setProperty(
+        "top",
+        window.pageYOffset + "px",
+        "important"
+      );
+    }
+  };
+
+  componentDidMount() {
+    // Modal should shift with window, particularly orientation change in mobile
+    window.addEventListener("resize", this.repositionActiveBox);
+    window.addEventListener("orientationchange", this.repositionActiveBox);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.repositionActiveBox);
+    window.removeEventListener("orientationchange", this.repositionActiveBox);
   }
 
   render() {
