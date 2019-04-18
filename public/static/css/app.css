@@ -208,12 +208,27 @@ hr {
   z-index: 500;
 }
 
-.logo a {
-  color: #000;
+.logo__link {
+  /* Abed: not sure why we kept this and overrode it in the component? */
+  /* color: #000; */
+  color: #fff;
   font-size: 24px;
   font-family: montserrat;
   font-weight: bold;
   text-decoration: none!important;
+}
+.logo__link:hover {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .logo {
+    top: 10px;
+    left: 15px;
+  }
+  .logo__link {
+    font-size: 19px;
+  }
 }
 
 /* home and nav */
@@ -409,7 +424,7 @@ hr {
   position: fixed;
   color: #000;
   z-index: 999;
-  top: 10px;
+  top: 21px;
   right: 25px;
   font-size: 36px;
   line-height: 36px;
@@ -420,6 +435,13 @@ hr {
 }
 .box:not(.active) .box__close {
   display: none;
+}
+
+@media (max-width: 767px) {
+  #back, .box__close {
+    top: 0;
+    right: 10px;
+  }
 }
 
 svg path,
