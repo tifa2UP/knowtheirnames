@@ -151,7 +151,7 @@ class HomePage extends Component {
         <header className="logo" role="banner">
           <a
             href="/"
-            style={{ color: "white", textDecoration: "none !important" }}
+            className="logo__link"
           >
             KNOW THEIR NAME.
           </a>
