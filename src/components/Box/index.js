@@ -3,12 +3,24 @@ import styled from "styled-components";
 import BoxDescription from "../BoxDescription";
 
 let BoxStyle = styled.div`
-  left: ${props => (props.active ? "" : props.left)}%!important;
-  top: ${props => (props.active ? "" : props.top)}%!important;
+  left: ${props => (props.active ? 0 : props.left)}%!important;
+  ${
+    ""
+    /**
+     * - We cannot use position: fixed for active state b/c
+     *   - it's always a fixed position from the top so 100% is below the screen even when we scroll
+     *   - - so something that is on the screen with position: absolute gets taken out, then animates to the top
+     * - So instead we keep position: absolute and just position to how far the user has scrolled from the top of the page
+     **/
+  }
+  top: ${props =>
+    props.active ? window.pageYOffset + "px" : props.top + "%"}!important;
   background: black;
-  width: ${props => (props.active ? "" : props.width)}%!important;
-  height: ${props => (props.active ? "" : props.height)}%!important;
-  display: ${props => (props.active === "invisible" ? "display: none" : "")};
+  width: ${props => (props.active ? "100" : props.width)}%!important;
+  height: ${props => (props.active ? "100" : props.height)}%!important;
+  ${
+    "" /* display: ${props => (props.active === "invisible" ? "display: none" : "")}; */
+  }
 `;
 
 let BoxBackground = styled.div`
@@ -51,15 +63,19 @@ export default class Box extends Component {
   };
 
   onClick = () => {
+    // console.log("Box onClick");
     document.body.style.overflow = "hidden";
-    this.props.onClick();
+    if (this.props.onClick && typeof this.props.onClick === "function") {
+      this.props.onClick();
+    }
     this.setState({
       activeBox: true
     });
   };
 
   onClose = () => {
-    console.log("onClose called");
+    // console.log("onClose called");
+    document.body.style.overflow = "";
     this.setState({
       activeBox: false
     });
@@ -67,14 +83,13 @@ export default class Box extends Component {
   };
 
   render() {
+    // console.log("rendered: ", this.props.name, this.props.active);
     return (
       <div onClick={this.onClick}>
         <BoxStyle
           id="about"
           active={this.state.activeBox}
-          className={`box box--about ${
-            this.state.activeBox ? "active" : this.props.active
-          }`}
+          className={`box box--about ${this.state.activeBox ? "active" : ""}`}
           left={this.props.left}
           top={this.props.top}
           width={this.props.width}
@@ -84,14 +99,14 @@ export default class Box extends Component {
             <Layer className="header__layer" color={this.getGreyColor()}>
               <nav>
                 <h2>
-                  <a href="#">
+                  <a className="cursor--pointer">
                     <span>{this.props.name}</span>
                   </a>
                 </h2>
               </nav>
             </Layer>
           </BoxBackground>
-          {this.props.active ? (
+          {this.state.activeBox ? (
             <BoxDescription
               name={this.props.name}
               notes={this.props.notes}

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Box from "../components/Box";
 import { format } from "url";
 import styled from "styled-components";
+import array from "../memorial.json";
 
 const DonationsPillStyle = styled.a`
   position: fixed;
@@ -20,47 +21,6 @@ const DonationsPillStyle = styled.a`
   text-decoration: none !important;
 `;
 
-const DownPillStyle = styled.div`
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
-  color: black;
-  background: white;
-  width: fit-content;
-  border-radius: 90px;
-  box-shadow: 0 8px 18px 0 rgba(34, 49, 89, 0.1);
-  cursor: pointer;
-  height: 40px;
-  width: 40px;
-  text-decoration: none !important;
-
-  @keyframes chevron-animation {
-    0% {
-      bottom: 5vh;
-    }
-    50% {
-      bottom: 4vh;
-    }
-  }
-`;
-
-const I = styled.i`
-  animation-name: chevron-animation;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  will-change: auto;
-  padding-top: 10px;
-  font-size: 24px;
-
-  @keyframes chevron-animation {
-    0% {
-      bottom: 5vh;
-    }
-    50% {
-      bottom: 4vh;
-    }
-  }
-`;
 class HomePage extends Component {
   constructor(props) {
     super(props);
@@ -110,17 +70,18 @@ class HomePage extends Component {
   }
 
   activateBox = () => {
-    this.setState({
-      activeBox: true
-    });
+    // this.setState({
+    //   activeBox: true
+    // });
   };
 
   onClose = () => {
-    console.log("parent onClose called");
-    this.setState({
-      activeBox: false
-    });
-    this.forceUpdate();
+    // console.log("parent onClose called", this);
+    // console.log("onClose: state before: ", this.state);
+    // this.setState({
+    //   activeBox: false
+    // });
+    // console.log("onClose: state after: ", this.state);
   };
 
   onScroll = () => {
@@ -133,25 +94,27 @@ class HomePage extends Component {
     }
   };
   render() {
-    let array = require("../memorial.json");
+    // This is now imported once at the top instead of every render.
+    // const array = require("../memorial.json");
     // array = this.shuffle(array);
+    // console.log("homepage render: state.activeBox?", this.state);
 
     let boxDimensions = this.getBoxDimensions(array.length);
     let BoxRenders = array.map(box => (
-      <div>
-        <Box
-          name={box.name}
-          key={box.id}
-          top={boxDimensions[array.indexOf(box)].top}
-          left={boxDimensions[array.indexOf(box)].left}
-          width={boxDimensions[array.indexOf(box)].width}
-          onClick={this.activateBox}
-          notes={box.notes}
-          image={box.picture_url}
-          onClose={this.onClose}
-          active={this.state.activeBox ? "invisible" : ""}
-        />
-      </div>
+      <Box
+        name={box.name}
+        key={box.id}
+        top={boxDimensions[array.indexOf(box)].top}
+        left={boxDimensions[array.indexOf(box)].left}
+        width={boxDimensions[array.indexOf(box)].width}
+        onClick={this.activateBox}
+        notes={box.notes}
+        image={box.picture_url}
+        onClose={this.onClose}
+        // Remove reliance on state. .invisible class no longer needed, popup
+        // appears over the rest of the boxes anyway.
+        // active={this.state.activeBox ? "invisible" : ""}
+      />
     ));
 
     const DonationsPill = (
@@ -167,9 +130,13 @@ class HomePage extends Component {
     );
 
     const DownPill = (
-      <DownPillStyle onMouseDown={() => window.scrollBy(0, 200)}>
-        <I style={{}} className="fa fa-angle-down" />
-      </DownPillStyle>
+      <button
+        type="button"
+        className="downpill"
+        onMouseDown={() => window.scrollBy(0, 200)}
+      >
+        <span className="downpill__icon fa fa-angle-down" />
+      </button>
     );
     return (
       <div onScroll={this.onScroll} style={{ scrollBehavior: "smooth" }}>
@@ -183,7 +150,9 @@ class HomePage extends Component {
         </div>
         {BoxRenders}
         {DonationsPill}
-        {this.state.activeBox ? "" : DownPill}
+        {/* Remove reliance on state for DownPill so we don't need to re-render */}
+        {/* {this.state.activeBox ? "" : DownPill} */}
+        {DownPill}
       </div>
     );
   }

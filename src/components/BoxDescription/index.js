@@ -31,6 +31,13 @@ export default class BoxDescription extends Component {
       );
     }
   };
+  close = event => {
+    // Prevent bubbling up to Box.onClick
+    event.stopPropagation();
+    if (this.props.onClose && typeof this.props.onClose === "function") {
+      this.props.onClose();
+    }
+  };
 
   render() {
     const clipboardMessage =
@@ -69,7 +76,7 @@ export default class BoxDescription extends Component {
                     button-href="#"
                     data-clipboard-text={clipboardMessage}
                   >
-                    <i className="fa fas fa-link" />{" "}
+                    <span className="fa fas fa-link"> </span>
                   </Clipboard>
                 </li>
               </ul>
@@ -84,9 +91,19 @@ export default class BoxDescription extends Component {
           </div>
         </div>
         <nav>
-          <a href="/" id="back" style={{ color: "#fff" }}>
+          {/* UX: A link takes you somewhere, right now it's a UX effect so let's use a button. */}
+          {/* <a href="/" id="back" style={{ color: "#fff" }}>
             <i className="fa fa-close" />
-          </a>
+          </a> */}
+          <button
+            type="button"
+            id="back"
+            style={{ color: "#fff" }}
+            onClick={this.close}
+            className="box__close cursor--pointer"
+          >
+            <i className="fa fa-close" />
+          </button>
         </nav>
       </div>
     );
