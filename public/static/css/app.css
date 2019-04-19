@@ -202,8 +202,8 @@ hr {
 
 /*logo*/
 .logo {
-  position: absolute;
-  left: 35px;
+  position: fixed;
+  left: 30px;
   top: 30px;
   z-index: 500;
 }
@@ -324,6 +324,9 @@ hr {
   transition-property: background-color;
   transition-duration: 0.3s;
 }
+.header__layer__link {
+  text-align: center;
+}
 .header__layer__link:focus .header__layer__link__text{
   outline-width: 2px;
   outline-style: solid;
@@ -421,7 +424,7 @@ hr {
 
 /* Abed: I'm hesitant to remove the #back id as it may tied down with some jQuery code */
 #back, .box__close {
-  position: fixed;
+  position: absolute;
   color: #000;
   z-index: 999;
   top: 21px;
@@ -608,19 +611,124 @@ body > svg {
   transition-timing-function: ease-in;
   width: 100%;
   height: 100vh;
-  padding: 80px 20px 20px;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   /* Overlay scrolldown button */
   z-index: 20;
 }
+@media (min-width: 768px) {
+  .box.active {
+    /* padding: 80px 20px 20px; */
+  }
+}
 .box__description {
   /* contents are currently absolutely positioned, maximize dimensions so that
      receiving focus makes visual sense */
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
+  height: 100vh;
+  /* background-size: cover;
+  background-repeat: no-repeat; */
+  color: #fff;
 }
+
+.box__description__wrapper {
+  display: flex;
+  flex-direction: column;
+  max-height: 100vh;
+  padding-top: 90px;
+}
+
+.box__description__header {
+  padding: 0 30px;
+}
+
+.box__description__header__text {
+  position: relative;
+}
+.box__description__header__text:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  right: -5px;
+  bottom: -4px;
+  height: 5px;
+  background-color: rgba(100, 100, 100, .6);
+}
+
+.box__description__body-wrapper {
+  /* for preventing unnecessary scrollbar, auto works well in Chrome/FF desktop,
+     but mileage may vary for mobile and IE 11. le sigh. */
+  overflow-y: auto;
+  /* overflow-y: scroll; */
+  overflow-x: hidden;
+  flex-basis: 100vh;
+}
+
+.box__description__photo-link {
+  position: relative;
+  z-index: 1;
+  float: right;
+  padding-right: 15px;
+  padding-left: 5px;
+  /* Make room for face */
+  margin-bottom: 100px;
+  text-decoration: none !important;
+  background-color: rgba(100, 100, 100, .6);
+  /* bright, slight blue-ish hue to help show it's a link, just enough contrast for a11y */
+  color: #e2e0f9;
+}
+
+.box__description__photo-link:focus,  .box__description__photo-link:hover{
+  color: #e2e0f9;
+}
+
+.box__description__photo-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.box__description__photo {
+  width: 100%;
+}
+
+.box__description__copy {
+  background-color: rgba(100, 100, 100, .6);
+  overflow: hidden;
+  clear: both;
+  position: relative;
+  margin: 0 30px 60px 30px;  
+  padding: 15px 15px 0 15px;
+  font-size: 19px;
+  max-width: 33em;
+}
+@media (max-width: 767px) {
+  .box__description {
+    
+  }
+
+  .box__description__wrapper {
+    padding-top: 50px;
+  }
+
+  .box__description__header {
+    padding: 0 15px;
+  }
+
+  .box__description__body-wrapper {
+    overflow-y: scroll;
+  }
+
+  .box__description__photo-wrapper {
+    /* position: absolute; */
+  }
+
+  .box__description__copy {
+    margin: 0 15px 30px 15px;
+    max-width: 30em;
+    font-size: 15px;
+  }
+}
+
 /* Show focus
    Credit:
    @link https://ghinda.net/article/mimic-native-focus-css/

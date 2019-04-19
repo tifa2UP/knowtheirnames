@@ -73,6 +73,7 @@ export default class BoxDescription extends Component {
     this.mainRef = React.createRef();
     this.firstLinkRef = React.createRef();
     this.closeRef = React.createRef();
+    this.bodyWrapperRef = React.createRef();
     this.initialTransitionEnded = false;
   }
   getFirstName = () => {
@@ -179,7 +180,7 @@ export default class BoxDescription extends Component {
     );
 
     // Body scroll lock especially for iOS
-    disablePageScroll(this.modalRef.current);
+    disablePageScroll(this.bodyWrapperRef.current);
     // ^above handles the below
     // document.documentElement.style.overflow = "hidden";
     // document.body.style.overflow = "hidden";
@@ -204,7 +205,7 @@ export default class BoxDescription extends Component {
 
     // Clear body scroll lock
     clearQueueScrollLocks();
-    enablePageScroll(this.modalRef.current);
+    enablePageScroll(this.bodyWrapperRef.current);
     // ^above handles the below
     // document.documentElement.style.overflow = "";
     // document.body.style.overflow = "";
@@ -234,6 +235,60 @@ export default class BoxDescription extends Component {
     const clipboardMessage =
       "Read " + this.props.name + "'s story " + window.location.href;
 
+    let photo;
+    let photoLink;
+    // This may or may not be the first link. Important for tab trapping.
+    let facebookLink;
+
+    if (this.props.image) {
+      photoLink = (
+        <a
+          className="box__description__photo-link"
+          href={this.props.image}
+          target="_blank" // eslint-disable-line react/jsx-no-target-blank
+          rel="noopener"
+          ref={this.firstLinkRef}
+        >
+          <span className="show-for-sr">View photo in new window</span>
+          <i className="fa fa-picture-o" aria-hidden="true" />{" "}
+          <i className="fa fa-external-link" aria-hidden="true" />
+        </a>
+      );
+      photo = (
+        <div className="box__description__photo-wrapper">
+          <img
+            className="box__description__photo"
+            alt={"Photo of " + this.props.name}
+            src={this.props.image}
+          />
+        </div>
+      );
+      facebookLink = (
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
+          // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+          target="_blank" // eslint-disable-line react/jsx-no-target-blank
+          rel="noopener"
+        >
+          <span className="show-for-sr">Share this site on Facebook</span>
+          <i className="fa fab fa-facebook-square" aria-hidden="true" />
+        </a>
+      );
+    } else {
+      facebookLink = (
+        <a
+          href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
+          // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+          target="_blank" // eslint-disable-line react/jsx-no-target-blank
+          rel="noopener"
+          ref={this.firstLinkRef}
+        >
+          <span className="show-for-sr">Share this site on Facebook</span>
+          <i className="fa fab fa-facebook-square" aria-hidden="true" />
+        </a>
+      );
+    }
+
     return (
       // eslint-disable-next-line jsx-a11y/role-supports-aria-props
       <div
@@ -247,7 +302,7 @@ export default class BoxDescription extends Component {
         // Temporary workaround to hiding sibling that has bg, we'll have to use
         // an actual image at some point for a11y purposes. Background images
         // will never get read by screen readers.
-        style={{ backgroundImage: "url(" + this.props.image + ")" }}
+        // style={{ backgroundImage: "url(" + this.props.image + ")" }}
         ref={this.modalRef}
       >
         {/* 
@@ -255,119 +310,143 @@ export default class BoxDescription extends Component {
           "NVDA will not announce the dialog role when the dialog itself receives focus"
           - source: https://developer.paciellogroup.com/blog/2018/06/the-current-state-of-modal-dialog-accessibility/ 
         */}
-        <div ref={this.mainRef} tabIndex={this.props.tabIndex}>
+        <div
+          className="box__description__wrapper"
+          ref={this.mainRef}
+          tabIndex={this.props.tabIndex}
+        >
           <Helmet titleTemplate={process.env.REACT_APP_DOC_TITLE_TEMPLATE}>
             <title>{this.props.name}</title>
           </Helmet>
 
-          <div className="header-title">
-            {/* <ContributeDiv className="invisible"> contribute to this profile</ContributeDiv> */}
-            <div className="row">
-              <div />
-              <div className="large-8 columns profile-copy">
-                {/* @todo: For IE11 this needs to be the first element of a modal dialog. Wish it supported conditional comments... */}
-                <h2 id={"dialog-title--" + this.props.id}>{this.props.name}</h2>
-                <p>{this.getNotes()}</p>
+          {/*
+            redesign:
+            - header
+            - link to image
+            - image? (bg?)
+            - description
+            - share links
+            - close
+            */}
+          {/* @todo: For IE11 this needs to be the first element of a modal dialog. Wish it supported conditional comments... */}
+          <h2
+            className="box__description__header"
+            id={"dialog-title--" + this.props.id}
+          >
+            <span className="box__description__header__text">
+              {this.props.name}
+            </span>
+          </h2>
+
+          <div
+            className="box__description__body-wrapper"
+            ref={this.bodyWrapperRef}
+          >
+            {photoLink}
+
+            {photo}
+
+            <div className="box__description__copy">
+              <p>{this.getNotes()}</p>
+            </div>
+
+            <nav
+              className="share-bar"
+              // Had no effect in NVDA when BoxDescription was wrapped in an aria-live div
+              // role="navigation"
+              // aria-label="Share, donate, & contact links"
+            >
+              <ul className="medium-horizontal menu">
+                <li>{facebookLink}</li>
+                <li>
+                  <a
+                    href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com"
+                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
+                    rel="noopener"
+                  >
+                    <span className="show-for-sr">
+                      Share this site on Twitter
+                    </span>
+                    <i
+                      className="fa fab fa-twitter-square"
+                      aria-hidden="true"
+                    />{" "}
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source="
+                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
+                    rel="noopener"
+                  >
+                    <span className="show-for-sr">
+                      Share this site on LinkedIn
+                    </span>
+                    <i
+                      className="fa fab fa-linkedin-square"
+                      aria-hidden="true"
+                    />{" "}
+                  </a>
+                </li>
+                <li>
+                  <Clipboard
+                    component="a"
+                    button-href="#"
+                    data-clipboard-text={clipboardMessage}
+                    role="button"
+                  >
+                    <span className="show-for-sr">Copy this link</span>
+                    <span className="fa fas fa-link" aria-hidden="true">
+                      {" "}
+                    </span>
+                  </Clipboard>
+                </li>
+              </ul>
+              <div className="share-bar__lower-menu">
+                <a
+                  href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/"
+                  // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                  target="_blank" // eslint-disable-line react/jsx-no-target-blank
+                  rel="noopener"
+                >
+                  Donate
+                </a>{" "}
+                |{" "}
+                <a
+                  href="https://goo.gl/forms/43iofEQLgtYJr5AH3"
+                  // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
+                  target="_blank" // eslint-disable-line react/jsx-no-target-blank
+                  rel="noopener"
+                >
+                  Contact us
+                </a>{" "}
               </div>
-              <nav
-                className="share-bar"
-                // Had no effect in NVDA when BoxDescription was wrapped in an aria-live div
-                // role="navigation"
-                // aria-label="Share, donate, & contact links"
-              >
-                <ul className=" medium-horizontal menu">
-                  <li>
-                    <a
-                      href="https://www.facebook.com/sharer/sharer.php?u=knowtheirname.com"
-                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
-                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
-                      rel="noopener"
-                      ref={this.firstLinkRef}
-                    >
+            </nav>
+          </div>
+
+          {/* UX: A link takes you somewhere, right now it's a UX effect so let's use a button. */}
+          {/* <a href="/" id="back" style={{ color: "#fff" }} onClick={this.close} className="box__close cursor--pointer" ref={this.closeRef}>
                       <span className="show-for-sr">
-                        Share this site on Facebook
+                        Close this profile and go back to main page
                       </span>
-                      <i className="fa fab fa-facebook-square" />
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://twitter.com/intent/tweet?text=Know%20their%20names.%20Know%20their%20stories.%20https://knowtheirname.com"
-                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
-                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
-                      rel="noopener"
-                    >
-                      <span className="show-for-sr">
-                        Share this site on Twitter
-                      </span>
-                      <i className="fa fab fa-twitter-square" />{" "}
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="https://www.linkedin.com/shareArticle?mini=true&url=knowtheirname.com&title=&summary=&source="
-                      // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
-                      target="_blank" // eslint-disable-line react/jsx-no-target-blank
-                      rel="noopener"
-                    >
-                      <span className="show-for-sr">
-                        Share this site on LinkedIn
-                      </span>
-                      <i className="fa fab fa-linkedin-square" />{" "}
-                    </a>
-                  </li>
-                  <li>
-                    <Clipboard
-                      component="a"
-                      button-href="#"
-                      data-clipboard-text={clipboardMessage}
-                      role="button"
-                    >
-                      <span className="show-for-sr">Copy this link</span>
-                      <span className="fa fas fa-link"> </span>
-                    </Clipboard>
-                  </li>
-                </ul>
-                <div style={{ fontSize: 16 }}>
-                  <a
-                    href="https://www.launchgood.com/project/support_for_the_families__victims_of_the_new_zealand_mosque_shootings?src=NZshooting&utm_source=Homepagebanner&utm_medium=1&utm_campaign=NZShooting#!/"
-                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
-                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
-                    rel="noopener"
-                  >
-                    Donate
-                  </a>{" "}
-                  |{" "}
-                  <a
-                    href="https://goo.gl/forms/43iofEQLgtYJr5AH3"
-                    // rel=noreferrer is not necessary as IE/Edge takes care of this without rel attr
-                    target="_blank" // eslint-disable-line react/jsx-no-target-blank
-                    rel="noopener"
-                  >
-                    Contact us
-                  </a>{" "}
-                </div>
-                {/* UX: A link takes you somewhere, right now it's a UX effect so let's use a button. */}
-                {/* <a href="/" id="back" style={{ color: "#fff" }}>
-                      <i className="fa fa-close" />
+                      <i className="fa fa-close" aria-hidden="true" />
                     </a>
                   */}
-                <button
-                  type="button"
-                  id="back"
-                  style={{ color: "#fff" }}
-                  onClick={this.close}
-                  className="box__close cursor--pointer"
-                  ref={this.closeRef}
-                >
-                  <span className="show-for-sr">
-                    Close this profile and go back to main page
-                  </span>
-                  <i className="fa fa-close" />
-                </button>
-              </nav>
-            </div>
-          </div>
+          <button
+            type="button"
+            id="back"
+            style={{ color: "#fff" }}
+            onClick={this.close}
+            className="box__close cursor--pointer"
+            ref={this.closeRef}
+          >
+            <span className="show-for-sr">
+              Close this profile and go back to main page
+            </span>
+            <i className="fa fa-close" aria-hidden="true" />
+          </button>
         </div>
       </div>
     );
