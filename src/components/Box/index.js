@@ -112,11 +112,15 @@ export default class Box extends Component {
 
   repositionActiveBox = () => {
     if (this.state.activeBox && this.boxRef.current) {
-      this.boxRef.current.style.setProperty(
-        "top",
-        window.pageYOffset + "px",
-        "important"
-      );
+      // Works better/more accurately in iOS orientation change by adding this
+      // to the event loop queue instead of running here.
+      setTimeout(() => {
+        this.boxRef.current.style.setProperty(
+          "top",
+          window.pageYOffset + "px",
+          "important"
+        );
+      }, 1);
     }
   };
 
