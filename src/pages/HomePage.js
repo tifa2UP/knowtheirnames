@@ -85,7 +85,7 @@ class HomePage extends Component {
   };
 
   onScroll = () => {
-    console.log(document.documentElement.scrollTop);
+    // console.log(document.documentElement.scrollTop);
     if (document.documentElement.scrollTop < 100) {
     } else {
       this.setState({
@@ -93,6 +93,7 @@ class HomePage extends Component {
       });
     }
   };
+
   render() {
     // This is now imported once at the top instead of every render.
     // const array = require("../memorial.json");
@@ -102,6 +103,7 @@ class HomePage extends Component {
     let boxDimensions = this.getBoxDimensions(array.length);
     let BoxRenders = array.map(box => (
       <Box
+        slug={box.name.toLowerCase().replace(/\s/g, "-")}
         name={box.name}
         key={box.id}
         top={boxDimensions[array.indexOf(box)].top}
@@ -134,20 +136,26 @@ class HomePage extends Component {
         type="button"
         className="downpill"
         onMouseDown={() => window.scrollBy(0, 200)}
+        // Utterly useless for keyboard users without some advanced tab through logic,
+        // so we'll keep it from being tabbable.
+        tabIndex="-1"
+        // Prevent NVDA users from tabbing via b / shift+b (but if they use mouse it still reads the "Scroll down" below)
+        aria-hidden="true"
       >
+        <span className="show-for-sr">Scroll down</span>
         <span className="downpill__icon fa fa-angle-down" />
       </button>
     );
     return (
       <div onScroll={this.onScroll} style={{ scrollBehavior: "smooth" }}>
-        <div className="logo">
+        <header className="logo" role="banner">
           <a
             href="/"
-            style={{ color: "white", textDecoration: "none !important" }}
+            className="logo__link"
           >
             KNOW THEIR NAME.
           </a>
-        </div>
+        </header>
         {BoxRenders}
         {DonationsPill}
         {/* Remove reliance on state for DownPill so we don't need to re-render */}
