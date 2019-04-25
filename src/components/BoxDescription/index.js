@@ -184,6 +184,8 @@ export default class BoxDescription extends Component {
     // ^above handles the below
     // document.documentElement.style.overflow = "hidden";
     // document.body.style.overflow = "hidden";
+    // Fix for Firefox
+    document.documentElement.style.scrollBehavior = "";
 
     // Close on Escape key
     document.addEventListener("keyup", this.escape, false);
@@ -209,6 +211,8 @@ export default class BoxDescription extends Component {
     // ^above handles the below
     // document.documentElement.style.overflow = "";
     // document.body.style.overflow = "";
+    // Restore original <html> styles
+    document.documentElement.style.scrollBehavior = "smooth";
 
     // Clear escape
     document.removeEventListener("keyup", this.escape, false);
